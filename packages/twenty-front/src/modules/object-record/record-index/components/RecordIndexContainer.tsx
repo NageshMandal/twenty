@@ -45,7 +45,7 @@ import { useIsFeatureEnabled } from '@/workspace/hooks/useIsFeatureEnabled';
 import { useCallback } from 'react';
 import { isDeeplyEqual } from '~/utils/isDeeplyEqual';
 import AiSdrSetupPage from '../../../../pages/Main/AiSdrSetup/Index/index.tsx'; // Adjust path as per actual file location
-import { AutomationForm } from '../../../navigation/components/AutomationForm.tsx';
+import AutomationCreatePage from '../../../../pages/Main/Automation/Create/index.tsx';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -185,7 +185,7 @@ export const RecordIndexContainer = () => {
     return (
       <StyledContainer className="special-object-container">
         <InformationBannerWrapper />
-        {objectMetadataItem.id === 'automation' && <AutomationForm />}
+        {objectMetadataItem.id === 'automation' && <AutomationCreatePage />}
         {!['ai-sdr', 'automation'].includes(objectMetadataItem.id) && (
           <p>Custom content for {objectMetadataItem.labelPlural}.</p>
         )}

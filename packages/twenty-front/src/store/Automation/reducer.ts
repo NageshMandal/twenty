@@ -1,4 +1,4 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer } from '@reduxjs/toolkit';
 
 import {
   deleteAutomation,
@@ -10,14 +10,14 @@ import {
   setResetBuilderEmail,
   setResetBuilderAiSdr,
   setValueBuilderAiSdr,
-} from "./actions";
-import { IWorkflow } from "../../utils/types/social-selling";
+} from './actions';
+import { IWorkflow } from '../../utils/types/social-selling';
 import {
   IBuilderAiSdr,
   IBuilderAiSdrSetup,
   IBuilderEmail,
   IBuilderMessage,
-} from "../../utils/types/automation";
+} from '../../utils/types/automation';
 
 type State = {
   isAutomationPending: boolean;

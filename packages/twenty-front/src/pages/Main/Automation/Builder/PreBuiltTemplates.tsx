@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 const node1UId = uuidv4();
 const node2UId = uuidv4();
@@ -10,98 +10,98 @@ const node7UId = uuidv4();
 const node8UId = uuidv4();
 
 export const invitationPlus2MessagesTemplate = {
-  name: "Invitation + 2 Messages",
-  tag: "",
+  name: 'Invitation + 2 Messages',
+  tag: '',
   id: null,
   flowchart: [
     // LinkedIn Sales Navigator List Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Sales Navigator List",
-        profileNumber: "100",
+        value: 'Linkedin Sales Navigator List',
+        profileNumber: '100',
       },
       id: node1UId, // Unique ID for the node
       prevNode: null, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node2UId, // Unique ID for the node
       prevNode: node1UId, // No previous node
     },
     // Connection Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Connection Request",
-        messageField: "#Language_English_#Prompt_MPGPTCRPrompt1",
+        value: 'Linkedin Connection Request',
+        messageField: '#Language_English_#Prompt_MPGPTCRPrompt1',
       },
       id: node3UId, // Unique ID for the node
       prevNode: node2UId,
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node4UId, // Unique ID for the node
       prevNode: node3UId, // No previous node
     },
     // First Message Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Message Sender",
-        messageField: "#Language_English_#Prompt_MPGPTMSPrompt1",
+        value: 'Linkedin Message Sender',
+        messageField: '#Language_English_#Prompt_MPGPTMSPrompt1',
       },
       id: node5UId, // Unique ID for the node
       prevNode: node4UId, // Previous node is Connection Node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node6UId, // Unique ID for the node
       prevNode: node5UId, // No previous node
     },
     // Second Message Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Message Sender",
-        messageField: "#Language_English_#Prompt_MPGPTMSPrompt1",
+        value: 'Linkedin Message Sender',
+        messageField: '#Language_English_#Prompt_MPGPTMSPrompt1',
       },
       id: node7UId, // Unique ID for the node
       prevNode: node6UId, // Previous node is First Message Node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node8UId, // Unique ID for the node
       prevNode: node7UId, // No previous node
@@ -110,52 +110,52 @@ export const invitationPlus2MessagesTemplate = {
 };
 
 export const messageFirstRelationTemplate = {
-  name: "Message First Relation",
-  tag: "",
+  name: 'Message First Relation',
+  tag: '',
   id: null,
   flowchart: [
     // LinkedIn Sales Navigator List Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Sales Navigator List",
-        profileNumber: "100",
+        value: 'Linkedin Sales Navigator List',
+        profileNumber: '100',
       },
       id: node1UId, // Unique ID for the node
       prevNode: null, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node2UId, // Unique ID for the node
       prevNode: node1UId, // No previous node
     },
     // First Message Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Message Sender",
-        messageField: "#Language_English_#Prompt_MPGPTMSPrompt1",
+        value: 'Linkedin Message Sender',
+        messageField: '#Language_English_#Prompt_MPGPTMSPrompt1',
       },
       id: node3UId, // Unique ID for the node
       prevNode: node2UId, // Previous node is Connection Node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node4UId, // Unique ID for the node
       prevNode: node3UId, // No previous node
@@ -164,74 +164,74 @@ export const messageFirstRelationTemplate = {
 };
 
 export const invitationPlusMessagesTemplate = {
-  name: "Invitation + Message",
-  tag: "",
+  name: 'Invitation + Message',
+  tag: '',
   id: null,
   flowchart: [
     // LinkedIn Sales Navigator List Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Sales Navigator List",
-        profileNumber: "100",
+        value: 'Linkedin Sales Navigator List',
+        profileNumber: '100',
       },
       id: node1UId, // Unique ID for the node
       prevNode: null, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node2UId, // Unique ID for the node
       prevNode: node1UId, // No previous node
     },
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Connection Request",
-        messageField: "#Language_English_#Prompt_MPGPTCRPrompt1",
+        value: 'Linkedin Connection Request',
+        messageField: '#Language_English_#Prompt_MPGPTCRPrompt1',
       },
       id: node3UId, // Unique ID for the node
       prevNode: node2UId,
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node4UId, // Unique ID for the node
       prevNode: node3UId, // No previous node
     },
     // First Message Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Message Sender",
-        messageField: "#Language_English_#Prompt_MPGPTMSPrompt1",
+        value: 'Linkedin Message Sender',
+        messageField: '#Language_English_#Prompt_MPGPTMSPrompt1',
       },
       id: node5UId, // Unique ID for the node
       prevNode: node4UId, // Previous node is Connection Node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node6UId, // Unique ID for the node
       prevNode: node5UId, // No previous node
@@ -240,51 +240,51 @@ export const invitationPlusMessagesTemplate = {
 };
 
 export const visitOnlyTemplate = {
-  name: "Visit",
-  tag: "",
+  name: 'Visit',
+  tag: '',
   id: null,
   flowchart: [
     // LinkedIn Sales Navigator List Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Sales Navigator List",
-        profileNumber: "100",
+        value: 'Linkedin Sales Navigator List',
+        profileNumber: '100',
       },
       id: node1UId, // Unique ID for the node
       prevNode: null, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node2UId, // Unique ID for the node
       prevNode: node1UId, // No previous node
     },
     // First Message Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Auto Visit",
+        value: 'Linkedin Auto Visit',
       },
       id: node3UId, // Unique ID for the node
       prevNode: node2UId, // Previous node is Connection Node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node4UId, // Unique ID for the node
       prevNode: node3UId, // No previous node
@@ -293,28 +293,28 @@ export const visitOnlyTemplate = {
 };
 
 export const myContacts = {
-  name: "My Contacts",
-  tag: "",
+  name: 'My Contacts',
+  tag: '',
   id: null,
   flowchart: [
     // LinkedIn Sales Navigator List Node
     {
-      choosenFunction: "other",
+      choosenFunction: 'other',
       content: {
-        value: "My Contacts",
+        value: 'My Contacts',
       },
       id: node1UId, // Unique ID for the node
       prevNode: null, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node2UId, // Unique ID for the node
       prevNode: node1UId, // No previous node
@@ -323,49 +323,49 @@ export const myContacts = {
 };
 
 export const myVisitedWebsite = {
-  name: "Visited Website",
-  tag: "",
+  name: 'Visited Website',
+  tag: '',
   id: null,
   flowchart: [
     // LinkedIn Sales Navigator List Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Visited Website",
+        value: 'Visited Website',
       },
       id: node1UId, // Unique ID for the node
       prevNode: null, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node2UId, // Unique ID for the node
       prevNode: node1UId, // No previous node
     },
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Prospect on Linkedin",
+        value: 'Prospect on Linkedin',
       },
       id: node3UId, // Unique ID for the node
       prevNode: node2UId, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node4UId, // Unique ID for the node
       prevNode: node3UId, // No previous node
@@ -374,28 +374,28 @@ export const myVisitedWebsite = {
 };
 
 export const myLinkedinCommenters = {
-  name: "Linkedin Post Commenters",
-  tag: "",
+  name: 'Linkedin Post Commenters',
+  tag: '',
   id: null,
   flowchart: [
     // LinkedIn Sales Navigator List Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Post Commenters",
+        value: 'Linkedin Post Commenters',
       },
       id: node1UId, // Unique ID for the node
       prevNode: null, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node2UId, // Unique ID for the node
       prevNode: node1UId, // No previous node
@@ -404,28 +404,28 @@ export const myLinkedinCommenters = {
 };
 
 export const myLinkedinLikes = {
-  name: "Linkedin Post Likes",
-  tag: "",
+  name: 'Linkedin Post Likes',
+  tag: '',
   id: null,
   flowchart: [
     // LinkedIn Sales Navigator List Node
     {
-      choosenFunction: "linkedin",
+      choosenFunction: 'linkedin',
       content: {
-        value: "Linkedin Post Likes",
+        value: 'Linkedin Post Likes',
       },
       id: node1UId, // Unique ID for the node
       prevNode: null, // No previous node
     },
     {
-      choosenFunction: "timer",
+      choosenFunction: 'timer',
       content: {
-        value: "Delay",
+        value: 'Delay',
         delayUnit: {
-          value: "Days",
-          label: "Days",
+          value: 'Days',
+          label: 'Days',
         },
-        delayValue: "2",
+        delayValue: '2',
       },
       id: node2UId, // Unique ID for the node
       prevNode: node1UId, // No previous node

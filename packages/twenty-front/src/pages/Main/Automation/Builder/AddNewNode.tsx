@@ -1,23 +1,31 @@
-import { v4 as uuidv4 } from "uuid";
-import { MenuOption, Submenu, automationMenu, commonLinkedinSubmenus } from "./AutomationMenu";
-import { workflowAutomationsArray } from "./TemplateFormOptions";
+import { v4 as uuidv4 } from 'uuid';
+import {
+  MenuOption,
+  Submenu,
+  automationMenu,
+  commonLinkedinSubmenus,
+} from './AutomationMenu';
+import { workflowAutomationsArray } from './TemplateFormOptions';
 
-function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
+function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = '') {
   // const selectedOption = automationMenu.options.find(
   //   (option) => option.name === selectedOptionValue
   // );
   const isCommonLinkedinSubmenu = commonLinkedinSubmenus.some(
-    (submenu: { name: any }) => submenu.name === selectedOptionValue
+    (submenu: { name: any }) => submenu.name === selectedOptionValue,
   );
   const findMenu = (
     options: (MenuOption | Submenu)[],
-    target: string
+    target: string,
   ): (MenuOption | Submenu) | null => {
     for (const option of options) {
-      if ("name" in option && option.name === target) {
+      if ('name' in option && option.name === target) {
         return option;
-      } else if ("submenus" in option) {
-        const submenuResult = findMenu(option.submenus as (MenuOption | Submenu)[], target);
+      } else if ('submenus' in option) {
+        const submenuResult = findMenu(
+          option.submenus as (MenuOption | Submenu)[],
+          target,
+        );
         if (submenuResult) return submenuResult;
       }
     }
@@ -26,11 +34,13 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
 
   function findParentMenu(
     options: (MenuOption | Submenu)[],
-    target: string
+    target: string,
   ): MenuOption | Submenu | null {
     for (const option of options) {
       if (option.submenus && Array.isArray(option.submenus)) {
-        const foundSubmenu = option.submenus.find((submenu) => submenu.name === target);
+        const foundSubmenu = option.submenus.find(
+          (submenu) => submenu.name === target,
+        );
         if (foundSubmenu && foundSubmenu.name === target) {
           return option;
         }
@@ -45,7 +55,10 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
   // Check if a selected option was found
   if (isCommonLinkedinSubmenu) {
     // If selectedOptionValue is "Message Sender," look for its submenu and repeat it
-    const parentMenu = findParentMenu(automationMenu.options, selectedOptionValue);
+    const parentMenu = findParentMenu(
+      automationMenu.options,
+      selectedOptionValue,
+    );
 
     if (parentMenu && parentMenu.submenus) {
       // submenus = parentMenu.submenus.map((submenu) => submenu.name);
@@ -61,27 +74,27 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
   }
 
   if (
-    selectedOptionValue === "Linkedin Sales Navigator Search Extractor" ||
-    selectedOptionValue === "Linkedin Search Extractor"
+    selectedOptionValue === 'Linkedin Sales Navigator Search Extractor' ||
+    selectedOptionValue === 'Linkedin Search Extractor'
   ) {
     submenus = submenus.filter((submenu) => {
-      if (typeof submenu === "object") {
-        return submenu.name !== "Automated AI";
+      if (typeof submenu === 'object') {
+        return submenu.name !== 'Automated AI';
       }
       return true; // Keep non-object submenus
     });
   } else {
     submenus = submenus.filter((submenu) => {
-      if (typeof submenu === "object") {
-        return submenu.name !== "1-1";
+      if (typeof submenu === 'object') {
+        return submenu.name !== '1-1';
       }
       return true; // Keep non-object submenus
     });
   }
-  if (selectedOptionValue !== "Send Mail") {
+  if (selectedOptionValue !== 'Send Mail') {
     submenus = submenus.filter((submenu) => {
-      if (typeof submenu === "object") {
-        return submenu.name !== "AI SDR";
+      if (typeof submenu === 'object') {
+        return submenu.name !== 'AI SDR';
       }
       return true; // Keep non-object submenus
     });
@@ -94,10 +107,10 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
   //     return true; // Keep non-object submenus
   //   });
   // }
-  if (selectedOptionValue !== "Linkedin Message Sender") {
+  if (selectedOptionValue !== 'Linkedin Message Sender') {
     submenus = submenus.filter((submenu) => {
-      if (typeof submenu === "object") {
-        return submenu.name !== "AI SDR Linkedin";
+      if (typeof submenu === 'object') {
+        return submenu.name !== 'AI SDR Linkedin';
       }
       return true; // Keep non-object submenus
     });
@@ -110,32 +123,32 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
   //     return true; // Keep non-object submenus
   //   });
   // }
-  if (selectedOptionValue === "1-1") {
+  if (selectedOptionValue === '1-1') {
     submenus = submenus.filter((submenu) => {
-      if (typeof submenu === "object") {
-        return submenu.name !== "1-1";
+      if (typeof submenu === 'object') {
+        return submenu.name !== '1-1';
       }
       return true; // Keep non-object submenus
     });
   } else {
     submenus = submenus.filter((submenu) => {
-      if (typeof submenu === "object") {
-        return submenu.name !== "Automated AI";
+      if (typeof submenu === 'object') {
+        return submenu.name !== 'Automated AI';
       }
       return true; // Keep non-object submenus
     });
   }
-  if (selectedOptionValue === "My Companies") {
+  if (selectedOptionValue === 'My Companies') {
     submenus = submenus.filter((submenu) => {
-      if (typeof submenu === "object") {
-        return submenu.name === "Prospect on Linkedin";
+      if (typeof submenu === 'object') {
+        return submenu.name === 'Prospect on Linkedin';
       }
       return true; // Keep non-object submenus
     });
   } else {
     submenus = submenus.filter((submenu) => {
-      if (typeof submenu === "object") {
-        return submenu.name !== "Prospect on Linkedin";
+      if (typeof submenu === 'object') {
+        return submenu.name !== 'Prospect on Linkedin';
       }
       return true; // Keep non-object submenus
     });
@@ -157,7 +170,7 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
   // }
 
   const choosenFtn = workflowAutomationsArray.find(
-    (item) => item.title === selectedOptionValue
+    (item) => item.title === selectedOptionValue,
   )?.choosenFunction;
 
   // if (
@@ -182,7 +195,7 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
     // );
     // Component logic here
     let uniqueNodeId = uuidv4();
-    if (recievedNodeId !== "") {
+    if (recievedNodeId !== '') {
       uniqueNodeId = recievedNodeId;
     }
 
@@ -195,13 +208,13 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
     const posy = props.position ? props.position.y : 0;
     const newNode = {
       id: uniqueNodeId,
-      type: "addActionNode",
-      dragHandle: ".drag",
+      type: 'addActionNode',
+      dragHandle: '.drag',
       position: { x: posx, y: posy + 110 },
       data: {
-        label: "Add Action",
+        label: 'Add Action',
         isDelay: false,
-        choosenFunction: choosenFtn || "linkedin",
+        choosenFunction: choosenFtn || 'linkedin',
         isFormField: false,
         isRootUrlCorrect: true,
         isInitialNode: false,
@@ -220,9 +233,9 @@ function AddNewNode(props: any, selectedOptionValue: any, recievedNodeId = "") {
       source: props.id,
       target: uniqueNodeId,
       style: { strokeWidth: 2 },
-      type: "",
+      type: '',
       data: {
-        label: "",
+        label: '',
       },
     };
     // console.log("submenu added to node == : " + JSON.stringify(newNode.data.choosenFunction));

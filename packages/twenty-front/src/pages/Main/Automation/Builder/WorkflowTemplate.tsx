@@ -47,20 +47,20 @@ export interface FlowchartNode {
 
 interface WorkflowData {
   name: string;
-  tag: string | "";
+  tag: string | '';
   id: number | null;
   userId: number | null;
   flowchart: FlowchartNode[];
-  status: string | "";
+  status: string | '';
 }
 
 const workflowTemplate: WorkflowData = {
-  name: "",
-  tag: "",
+  name: '',
+  tag: '',
   id: null,
   userId: null,
   flowchart: [],
-  status: "",
+  status: '',
 };
 
 export default workflowTemplate;

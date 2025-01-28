@@ -1,9 +1,9 @@
-import { Fragment, ReactNode, useEffect, useRef, useState } from "react";
-import { Transition } from "@headlessui/react";
+import { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
+import { Transition } from '@headlessui/react';
 
-import useOutsideClick from "src/hook/common/useOutsideClick";
-import { ISelectOption } from "src/utils/types";
-import Icon from "../Icon";
+import useOutsideClick from '../../../hooks/common/useOutsideClick';
+import { ISelectOption } from '../../../utils/types';
+import Icon from '../Icon';
 
 type MenuButtonProps = {
   className?: string;
@@ -16,8 +16,8 @@ type MenuButtonProps = {
 };
 
 const MenuButtonBuilder: React.FC<MenuButtonProps> = ({
-  className = "",
-  itemClassName = "",
+  className = '',
+  itemClassName = '',
   value,
   onChange = () => {},
   menuList,
@@ -51,17 +51,17 @@ const MenuButtonBuilder: React.FC<MenuButtonProps> = ({
       // console.log("mmmm " + JSON.stringify(menuList));
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, [open]);
 
   return (
     <div className={`relative cursor-pointer flex-none h-full ${className}`}>
       <div
-        className='h-full'
+        className="h-full"
         onClick={() => {
           if (!disabled) {
             setOpen((prev) => !prev);
@@ -73,34 +73,34 @@ const MenuButtonBuilder: React.FC<MenuButtonProps> = ({
       <Transition
         show={open}
         as={Fragment}
-        enter='transition ease-out duration-100'
-        enterFrom='transform opacity-0 scale-95'
-        enterTo='transform opacity-100 scale-100'
-        leave='transition ease-in duration-75'
-        leaveFrom='transform opacity-100 scale-100'
-        leaveTo='transform opacity-0 scale-95'
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
       >
         <div
           ref={ref}
           className={`nowheel  absolute z-50 flex flex-col items-center justify-center px-4 py-6 mt-8 origin-top-right border rounded-md shadow-lg bg-modalContentColor dark:bg-modalContentColor-dark border-borderColor dark:border-borderColor-dark
-          -translate-x-1/2 left-1/2 ${isAboveMiddle ? "" : "bottom-50"}`}
+          -translate-x-1/2 left-1/2 ${isAboveMiddle ? '' : 'bottom-50'}`}
         >
           <div
             className={`flex flex-col gap-4 scrollbar-1`}
-            style={{ maxHeight: `${scrollValue}px`, overflowY: "auto" }}
+            style={{ maxHeight: `${scrollValue}px`, overflowY: 'auto' }}
           >
             {menuList.map((item, index) => (
               <div
                 key={index}
-                id='nodeSelectOption'
+                id="nodeSelectOption"
                 className={`border cursor-pointer whitespace-nowrap text-center px-6 py-6 text-14 rounded-md hover:bg-hoverColor hover:dark:bg-hoverColor-dark hover:!text-primary
-                    ${itemClassName ? itemClassName : ""}
+                    ${itemClassName ? itemClassName : ''}
                     ${
                       value === item.value
-                        ? "bg-hoverColor dark:bg-hoverColor-dark text-primary !border-blue-200  dark:!border-blue-900/50 "
-                        : "text-gray-600 dark:text-neutral-400 border-transparent"
+                        ? 'bg-hoverColor dark:bg-hoverColor-dark text-primary !border-blue-200  dark:!border-blue-900/50 '
+                        : 'text-gray-600 dark:text-neutral-400 border-transparent'
                     }
-                    ${false ? "bg-hoverColor dark:bg-hoverColor-dark !text-primary " : ""}`}
+                    ${false ? 'bg-hoverColor dark:bg-hoverColor-dark !text-primary ' : ''}`}
                 onClick={(e) => {
                   if (!item.submenus) {
                     onChange(item.value);
@@ -114,9 +114,15 @@ const MenuButtonBuilder: React.FC<MenuButtonProps> = ({
                 //   handleMenuItemHover(item);
                 // }}
               >
-                <div id='nodeSelectOption' className='flex items-center justify-center space-x-2'>
-                  <Icon name={item.icon ?? "Logo"} className='w-40 h-40 p-5 text-[#2285E1]' />{" "}
-                  <span id='nodeSelectOption'>{item.label}</span>
+                <div
+                  id="nodeSelectOption"
+                  className="flex items-center justify-center space-x-2"
+                >
+                  <Icon
+                    name={item.icon ?? 'Logo'}
+                    className="w-40 h-40 p-5 text-[#2285E1]"
+                  />{' '}
+                  <span id="nodeSelectOption">{item.label}</span>
                   {/* {item.label == "Email Template" && <span className='pl-8'> {">"} </span>} */}
                 </div>
               </div>

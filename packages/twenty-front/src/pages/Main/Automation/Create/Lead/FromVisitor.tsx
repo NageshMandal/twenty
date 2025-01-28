@@ -1,9 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import Button from "src/components/base/Button";
-import Input from "src/components/base/Input";
-import ReactSelectRh from "src/components/base/ReactSelectRh";
-import { useForm } from "react-hook-form";
+import Button from '../../../../../components/base/Button';
+import { useForm } from 'react-hook-form';
 
 type Props = {
   onNext: Function;
@@ -11,32 +9,33 @@ type Props = {
 };
 
 const options = [
-  { value: "01", label: "United State" },
-  { value: "02", label: "Ukraine" },
-  { value: "03", label: "Italy" },
-  { value: "04", label: "Switzerland" },
-  { value: "05", label: "Norway" },
-  { value: "06", label: "German" },
+  { value: '01', label: 'United State' },
+  { value: '02', label: 'Ukraine' },
+  { value: '03', label: 'Italy' },
+  { value: '04', label: 'Switzerland' },
+  { value: '05', label: 'Norway' },
+  { value: '06', label: 'German' },
 ];
 
 const FromVisitor: React.FC<Props> = ({ onNext, onBack }) => {
   const { control } = useForm();
   return (
     <div>
-      <div className=' py-20 text-center justify-center'>
+      <div className=" py-20 text-center justify-center">
         {/* <h2 className='text-16 text-neutral-800 dark:text-neutral-300'>
           Prospect visitors by automation
         </h2> */}
-        <h2 className='text-16 text-neutral-800 dark:text-neutral-300 pt-10'>
-          This Automation will auto select those Prospects that Visited Your Website,
+        <h2 className="text-16 text-neutral-800 dark:text-neutral-300 pt-10">
+          This Automation will auto select those Prospects that Visited Your
+          Website,
         </h2>
-        <h3 className='text-14 text-neutral-800 dark:text-neutral-300 pt-10'>
-          You can present them your best products or opportunities to turn them into regular loyal
-          customers
+        <h3 className="text-14 text-neutral-800 dark:text-neutral-300 pt-10">
+          You can present them your best products or opportunities to turn them
+          into regular loyal customers
         </h3>
       </div>
-      <div className='py-10 max-w-500'></div>
-      <form className='flex flex-col gap-16'>
+      <div className="py-10 max-w-500"></div>
+      <form className="flex flex-col gap-16">
         {/* <Input fullWidth label='Complete Landing Page URL' />
         <ReactSelectRh
           options={options}
@@ -66,8 +65,12 @@ const FromVisitor: React.FC<Props> = ({ onNext, onBack }) => {
           control={control}
           name='technology_usage'
         /> */}
-        <div className='flex gap-12 pt-10  items-center justify-center'>
-          <Button className='w-130' buttonStyle='secondary' onClick={() => onBack()}>
+        <div className="flex gap-12 pt-10  items-center justify-center">
+          <Button
+            className="w-130"
+            buttonStyle="secondary"
+            onClick={() => onBack()}
+          >
             Back
           </Button>
           {/* <Button onClick={() => onNext()}>Save and Next</Button> */}

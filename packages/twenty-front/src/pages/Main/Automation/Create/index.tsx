@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import Icon from "src/components/base/Icon";
-import LeadTab from "./Lead";
-import SequenceTab from "./Sequence";
-import SummarizeTab from "./Summarize";
-import { IWorkflowTemplate } from "src/utils/types/social-selling";
-import { authSelector } from "src/store/Auth";
-import { paths } from "src/routes/path";
-import { useAppSelector } from "src/hook/redux/useStore";
-import Button from "src/components/base/Button";
-import { extensionUrl } from "../Builder/TemplateFormOptions";
-import { format } from "date-fns";
+import LeadTab from './Lead';
+import SequenceTab from './Sequence';
+import SummarizeTab from './Summarize';
+import { IWorkflowTemplate } from '../../../../utils/types/social-selling';
+import { authSelector } from '../../../../store/Auth';
+import { useAppSelector } from '../../../../hooks/redux/useStore.ts';
+import { extensionUrl } from '../Builder/TemplateFormOptions';
+import { format } from 'date-fns';
 
 const AutomationCreatePage: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<number>();
   const [currentTemplate, setCurrentTemplate] = useState<string>();
   const [leadTemplateName, setLeadTemplateName] = useState<string>();
-  const [linkedinWorkflowTemplate, setLinkedinWorkflowTemplate] = useState<IWorkflowTemplate>();
+  const [linkedinWorkflowTemplate, setLinkedinWorkflowTemplate] =
+    useState<IWorkflowTemplate>();
   const [workflowId, setWorkflowId] = useState();
   const [summerWorkflowId, setSummerWorkflowIdWorkflowId] = useState();
   const [workflowTemplate, setWorkflowTemplate] = useState<IWorkflowTemplate>();
   const [openBuilderPage, setOpenBuilderPage] = useState(false);
 
-  const [startMethod, setStartMethod] = useState<string>("");
+  const [startMethod, setStartMethod] = useState<string>('');
 
   const { cookieInfo, linkedinConnectionStatus } = useAppSelector(authSelector);
   const [shouldDisplayError, setShouldDisplayError] = useState(true);
@@ -37,7 +35,7 @@ const AutomationCreatePage: React.FC = () => {
     if (!workflowId) {
       setWorkflowId(state?.workflowId);
     }
-    if (startMethod === "scratch") {
+    if (startMethod === 'scratch') {
       setWorkflowId(undefined);
       setCurrentTemplate(undefined);
       setLeadTemplateName(undefined);
@@ -45,7 +43,7 @@ const AutomationCreatePage: React.FC = () => {
       setSummerWorkflowIdWorkflowId(undefined);
       setWorkflowTemplate(undefined);
     }
-    if (startMethod === "aisdr-setup") {
+    if (startMethod === 'aisdr-setup') {
       setWorkflowId(undefined);
       setCurrentTemplate(undefined);
       setLeadTemplateName(undefined);
@@ -53,12 +51,13 @@ const AutomationCreatePage: React.FC = () => {
       setSummerWorkflowIdWorkflowId(undefined);
       setWorkflowTemplate(undefined);
     }
-    if (startMethod === "visited") {
+    if (startMethod === 'visited') {
       setWorkflowId(undefined);
     }
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (openBuilderPage && summerWorkflowId) {
       // console.log("open builder" + summerWorkflowId);
-      setStartMethod("");
+      setStartMethod('');
       setOpenBuilderPage(false);
       setCurrentTab(1);
     }
@@ -78,12 +77,13 @@ const AutomationCreatePage: React.FC = () => {
   }, [currentTab]);
 
   const steps = [
-    { name: "Add Leads", value: 0 },
-    { name: "Create a sequence", value: 1 },
-    { name: "Launched", value: 2 },
+    { name: 'Add Leads', value: 0 },
+    { name: 'Create a sequence', value: 1 },
+    { name: 'Launched', value: 2 },
   ];
 
   useEffect(() => {
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (state?.builder) {
       setCurrentTab(1);
     } else {
@@ -92,6 +92,7 @@ const AutomationCreatePage: React.FC = () => {
   }, [state, leadTemplateName]);
 
   useEffect(() => {
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (isAisdrSetupLanding) {
       setWorkflowId(undefined);
       setCurrentTemplate(undefined);
@@ -99,13 +100,13 @@ const AutomationCreatePage: React.FC = () => {
       setLinkedinWorkflowTemplate(undefined);
       setSummerWorkflowIdWorkflowId(undefined);
       setWorkflowTemplate(undefined);
-      setStartMethod("aisdr-setup");
+      setStartMethod('aisdr-setup');
       setCurrentTab(1);
     }
   }, []);
 
   const handleExtensionClick = async () => {
-    window.open(extensionUrl, "_blank");
+    window.open(extensionUrl, '_blank');
   };
 
   return (
@@ -128,28 +129,31 @@ const AutomationCreatePage: React.FC = () => {
         </Link> */}
         <div
           className={`flex items-center justify-between gap-16 ${
-            currentTab === 1 ? "max-w-1140" : "max-w-1140"
+            currentTab === 1 ? 'max-w-1140' : 'max-w-1140'
           }`}
         >
-          <h2 className='font-normal select-none text-25 text-neutral-800 dark:text-neutral-300'>
+          <h2 className="font-normal select-none text-25 text-neutral-800 dark:text-neutral-300">
             Create Automations
           </h2>
-          {linkedinConnectionStatus && Object.keys(linkedinConnectionStatus).length !== 0 ? (
-            <div className='text-center'>
+          {linkedinConnectionStatus &&
+          Object.keys(linkedinConnectionStatus).length !== 0 ? (
+            <div className="text-center">
               <p
                 className={`text-white px-12 py-4 rounded-full ${
                   linkedinConnectionStatus.connected
-                    ? "dark:bg-green-600 bg-green-500"
-                    : "dark:bg-red-600 bg-red-500"
+                    ? 'dark:bg-green-600 bg-green-500'
+                    : 'dark:bg-red-600 bg-red-500'
                 }`}
               >
                 {linkedinConnectionStatus.connected ? (
                   `Linkedin Integration Last Check ${format(
                     new Date(linkedinConnectionStatus.last_updated_at),
-                    "yyyy-MM-dd HH:mm:ss"
+                    'yyyy-MM-dd HH:mm:ss',
                   )}`
                 ) : (
-                  <div className='flex text-center justify-center'>Please Integrate Linkedin</div>
+                  <div className="flex text-center justify-center">
+                    Please Integrate Linkedin
+                  </div>
                 )}
                 {/* ? "Cookie Expired"
                 : `Cookie Active updated ${cookieInfo.cookie_last_updated_at}`} */}
@@ -160,20 +164,20 @@ const AutomationCreatePage: React.FC = () => {
       </div>
       <div
         className={`flex items-center justify-between pt-10 border-b border-borderColor dark:border-borderColor-dark ${
-          currentTab === 1 ? "max-w-1140" : "max-w-1140"
+          currentTab === 1 ? 'max-w-1140' : 'max-w-1140'
         }`}
       >
-        <nav className='grid justify-between w-full grid-cols-3 text-30'>
+        <nav className="grid justify-between w-full grid-cols-3 text-30">
           {steps.map((step) => (
             <div
               key={step.name}
               className={`whitespace-nowrap border-b-2 py-16 px-1 text-sm font-medium flex justify-center ${
                 step?.value === currentTab
-                  ? "border-primary text-primary "
-                  : "border-transparent text-neutral-600 dark:text-neutral-400"
+                  ? 'border-primary text-primary '
+                  : 'border-transparent text-neutral-600 dark:text-neutral-400'
               }`}
             >
-              <p className='text-18'>{step.name}</p>
+              <p className="text-18">{step.name}</p>
             </div>
           ))}
         </nav>
@@ -184,7 +188,7 @@ const AutomationCreatePage: React.FC = () => {
           setCurrentTemplate={setCurrentTemplate}
           setLinkedinWorkflowTemplate={setLinkedinWorkflowTemplate}
           onNextTab={(target: string) => {
-            if (target == "scratch") {
+            if (target == 'scratch') {
               setWorkflowId(undefined);
               setCurrentTemplate(undefined);
               setLeadTemplateName(undefined);

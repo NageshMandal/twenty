@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
-import { FieldValues, useForm, useWatch } from "react-hook-form";
+import { useEffect, useState } from 'react';
+import { FieldValues, useForm, useWatch } from 'react-hook-form';
 
-import Button from "../../../../../components/base/Button";
-import Icon from "../../../../../components/base/Icon/index";
-import { useLocation } from "../../../../../hooks/lead/useLocation";
-import { ISelectOption } from "../../../../../utils/types";
-import CompaniesToProspect from "./CompaniesToProspect";
-import ContactLocation from "./ContactLocation";
-import DepartmentHeadCount from "./DepartmentHeadCount";
-import Functions from "./Functions";
-import HeadCountGrowth from "./HeadCountGrowth";
-import IncludeRecentlyHired from "./IncludeRecentlyHired";
-import Industry from "./Industry";
-import JobTitle from "./JobTitle";
-import LandingPageUrl from "./LandingPageUrl";
-import LocationHQ from "./LocationHQ";
-import ManagementLevel from "./ManagementLevel";
-import Personas from "./Personas";
-import ProspectsPerCompanyPerUser from "./ProspectsPerCompany";
-import TeamMembersToUseInCampaign from "./TeamMembersToUseInCampaign";
-import Technology from "./Technology";
-import UseDirectPathToProspect from "./UseDirectPathToProspect";
-import VisitorIdentified from "./VisitorIdentified";
+import Button from '../../../../../components/base/Button';
+import Icon from '../../../../../components/base/Icon/index';
+import { useLocation } from '../../../../../hooks/lead/useLocation';
+import { ISelectOption } from '../../../../../utils/types';
+import CompaniesToProspect from './CompaniesToProspect';
+import ContactLocation from './ContactLocation';
+import DepartmentHeadCount from './DepartmentHeadCount';
+import Functions from './Functions';
+import HeadCountGrowth from './HeadCountGrowth';
+import IncludeRecentlyHired from './IncludeRecentlyHired';
+import Industry from './Industry';
+import JobTitle from './JobTitle';
+import LandingPageUrl from './LandingPageUrl';
+import LocationHQ from './LocationHQ';
+import ManagementLevel from './ManagementLevel';
+import Personas from './Personas';
+import ProspectsPerCompanyPerUser from './ProspectsPerCompany';
+import TeamMembersToUseInCampaign from './TeamMembersToUseInCampaign';
+import Technology from './Technology';
+import UseDirectPathToProspect from './UseDirectPathToProspect';
+import VisitorIdentified from './VisitorIdentified';
 
 export interface FormData {
   location: string;
@@ -65,17 +65,18 @@ const FromScratch = ({
   onPrevious: () => void;
   selectedBlockValue: number;
 }) => {
-  console.log("selectedBlockValue " + selectedBlockValue);
-  const [selectedBlock, setSelectedBlock] = useState<number>(selectedBlockValue);
+  console.log('selectedBlockValue ' + selectedBlockValue);
+  const [selectedBlock, setSelectedBlock] =
+    useState<number>(selectedBlockValue);
   const [query, setQuery] = useState<string | null>(null); // Add state to hold query
   const { locationOption } = useLocation(query);
 
   const { control, handleSubmit } = useForm<FieldValues>();
 
   const [formData, setFormData] = useState<FormData>({
-    location: "",
-    industry: "",
-    technology: "",
+    location: '',
+    industry: '',
+    technology: '',
     teamMembers: [],
     headCountGrowth: {
       min: 0,
@@ -86,7 +87,7 @@ const FromScratch = ({
       max: 0,
     },
     departmentValue: {
-      department: "",
+      department: '',
     },
     managementLevel: [],
     function: [],
@@ -100,24 +101,24 @@ const FromScratch = ({
     // directPathBySeniorityLevel: "",
     autopilotOutboundTurnedOn: false,
     autopilotRepliesTurnedOn: false,
-    jobTitle: "",
-    landingPageUrl: "",
+    jobTitle: '',
+    landingPageUrl: '',
     companySizeByEmployee: 10,
   });
 
   const includeRecentlyHired = useWatch({
     control,
-    name: "includeRecentlyHired",
+    name: 'includeRecentlyHired',
     defaultValue: formData.includeRecentlyHired,
   });
   const useDirectPathToProspect = useWatch({
     control,
-    name: "useDirectPathToProspect",
+    name: 'useDirectPathToProspect',
     defaultValue: formData.useDirectPathToProspect,
   });
   const visitorIdentified = useWatch({
     control,
-    name: "visitorIdentified",
+    name: 'visitorIdentified',
     defaultValue: formData.visitorIdentified,
   });
   // const directPathBySeniorityLevel = useWatch({
@@ -127,18 +128,21 @@ const FromScratch = ({
   // });
   const autopilotOutboundTurnedOn = useWatch({
     control,
-    name: "autopilotOutboundTurnedOn",
+    name: 'autopilotOutboundTurnedOn',
     defaultValue: formData.autopilotOutboundTurnedOn,
   });
   const autopilotRepliesTurnedOn = useWatch({
     control,
-    name: "autopilotRepliesTurnedOn",
+    name: 'autopilotRepliesTurnedOn',
     defaultValue: formData.autopilotRepliesTurnedOn,
   });
 
   const [errors, setErrors] = useState<Partial<FormData>>({});
 
-  const handleMultiSelectInputChange = (e: { label: string; value: string }) => {
+  const handleMultiSelectInputChange = (e: {
+    label: string;
+    value: string;
+  }) => {
     if (formData[e.label].includes(e.value)) {
       setFormData({
         ...formData,
@@ -154,7 +158,7 @@ const FromScratch = ({
   const handleInputArrayChange = (e: { label: string; value: string[] }) => {
     setErrors({
       ...errors,
-      [e.label]: "",
+      [e.label]: '',
     });
 
     setFormData({
@@ -166,7 +170,7 @@ const FromScratch = ({
   const handleInputChange = (e: ISelectOption) => {
     setErrors({
       ...errors,
-      [e.label]: "",
+      [e.label]: '',
     });
 
     setFormData({
@@ -193,7 +197,7 @@ const FromScratch = ({
   const handleLocationInputChange = (e: ISelectOption) => {
     setErrors({
       ...errors,
-      [e.label]: "",
+      [e.label]: '',
     });
 
     setFormData({
@@ -203,7 +207,11 @@ const FromScratch = ({
     useLocation(e.value);
   };
 
-  const handleMinMaxInputChange = (e: { label: string; min: number; max: number }) => {
+  const handleMinMaxInputChange = (e: {
+    label: string;
+    min: number;
+    max: number;
+  }) => {
     setFormData({
       ...formData,
       [e.label]: { min: e.min, max: e.max },
@@ -222,17 +230,17 @@ const FromScratch = ({
 
     if (selectedBlock != 3) {
       if (!formData.location) {
-        validationErrors.location = "Location HQ is required";
+        validationErrors.location = 'Location HQ is required';
       }
       if (!formData.industry) {
-        validationErrors.industry = "Industry is required";
+        validationErrors.industry = 'Industry is required';
       }
       if (!formData.jobTitle) {
-        validationErrors.jobTitle = "Job Title is required";
+        validationErrors.jobTitle = 'Job Title is required';
       }
     }
     if (!formData.teamMembers.length) {
-      validationErrors.teamMembers = ["Team Members is required"];
+      validationErrors.teamMembers = ['Team Members is required'];
     }
     return validationErrors;
   };
@@ -266,22 +274,22 @@ const FromScratch = ({
   };
 
   return (
-    <div className='w-full'>
-      <div className='flex items-center gap-12 py-30 w-full'>
-        <div className='p-12 overflow-hidden bg-primary-2 rounded-xl'>
-          <Icon name='Building' className='w-20 h-20 text-white' />
+    <div className="w-full">
+      <div className="flex items-center gap-12 py-30 w-full">
+        <div className="p-12 overflow-hidden bg-primary-2 rounded-xl">
+          <Icon name="Building" className="w-20 h-20 text-white" />
         </div>
-        <p className='text-neutral-800 dark:text-neutral-300 text-20'>
+        <p className="text-neutral-800 dark:text-neutral-300 text-20">
           Setup Targeted Accounts + their Personas
         </p>
       </div>
-      <form className='w-1/2' onSubmit={handleSubmit(onSubmit)}>
-        <div className='grid grid-cols-1 space-y-24'>
+      <form className="w-1/2" onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid grid-cols-1 space-y-24">
           {selectedBlock == 3 && (
             <>
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <VisitorIdentified control={control} />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <LandingPageUrl
                 value={
                   formData.landingPageUrl
@@ -299,22 +307,26 @@ const FromScratch = ({
             locations={locationOption}
             errors={errors.location}
             value={
-              formData.location ? { label: formData.location, value: formData.location } : undefined
+              formData.location
+                ? { label: formData.location, value: formData.location }
+                : undefined
             }
             handleInputChange={handleLocationInputChange}
             handleInputChangeExternally={handleInputChangeExternally}
             selectedBlock={selectedBlock}
           />
-          <div className='border-t border-gray-300 w-full' />
+          <div className="border-t border-gray-300 w-full" />
           <Industry
             errors={errors.industry}
             value={
-              formData.industry ? { label: formData.industry, value: formData.industry } : undefined
+              formData.industry
+                ? { label: formData.industry, value: formData.industry }
+                : undefined
             }
             handleInputChange={handleInputChange}
             selectedBlock={selectedBlock}
           />
-          <div className='border-t border-gray-300 w-full' />
+          <div className="border-t border-gray-300 w-full" />
           <Technology
             value={
               formData.technology
@@ -323,7 +335,7 @@ const FromScratch = ({
             }
             handleInputChange={handleInputChange}
           />
-          <div className='border-t border-gray-300 w-full' />
+          <div className="border-t border-gray-300 w-full" />
           <JobTitle
             value={
               formData.jobTitle
@@ -354,30 +366,33 @@ const FromScratch = ({
           )}
           {selectedBlock != 3 && (
             <>
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <HeadCountGrowth
                 value={formData.headCountGrowth}
                 handleInputChange={handleMinMaxInputChange}
               />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <DepartmentHeadCount
                 depValue={formData.departmentValue}
                 value={formData.departmentHeadCount}
                 handleInputChange={handleMinMaxInputChange}
                 handleDepartmentChange={handleDepartmentChange}
               />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <ManagementLevel
                 value={
                   formData.managementLevel
                     ? formData.managementLevel.map((managementLevelItem) => {
-                        return { label: managementLevelItem, value: managementLevelItem };
+                        return {
+                          label: managementLevelItem,
+                          value: managementLevelItem,
+                        };
                       })
                     : undefined
                 }
                 handleInputChange={handleMultiSelectInputChange}
               />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <Functions
                 value={
                   formData.function
@@ -388,7 +403,7 @@ const FromScratch = ({
                 }
                 handleInputChange={handleMultiSelectInputChange}
               />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <Personas
                 value={
                   formData.personas
@@ -399,25 +414,31 @@ const FromScratch = ({
                 }
                 handleInputChange={handleInputArrayChange}
               />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <IncludeRecentlyHired control={control} />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <ContactLocation
                 locations={locationOption}
                 value={
                   formData.contactLocation
                     ? formData.contactLocation.map((contactLocation) => {
-                        return { label: contactLocation, value: contactLocation };
+                        return {
+                          label: contactLocation,
+                          value: contactLocation,
+                        };
                       })
                     : undefined
                 }
                 handleInputChange={handleInputArrayChange}
               />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <CompaniesToProspect
                 value={
                   formData.companiesToProspect
-                    ? { label: formData.companiesToProspect, value: formData.companiesToProspect }
+                    ? {
+                        label: formData.companiesToProspect,
+                        value: formData.companiesToProspect,
+                      }
                     : undefined
                 }
                 handleInputChange={handleInputChange}
@@ -427,7 +448,7 @@ const FromScratch = ({
           )}
           {(selectedBlock == 3 || selectedBlock == 2) && (
             <>
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <ProspectsPerCompanyPerUser
                 value={
                   formData.prospectsPerCompanyPerUser
@@ -444,9 +465,9 @@ const FromScratch = ({
           )}
           {selectedBlock != 3 && (
             <>
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               <UseDirectPathToProspect control={control} />
-              <div className='border-t border-gray-300 w-full' />
+              <div className="border-t border-gray-300 w-full" />
               {/* <DirectPathBySeniorityLevel control={control} />
               <div className='border-t border-gray-300 w-full' /> */}
               {/* <AutopilotOutboundTurnedOn control={control} />
@@ -454,9 +475,9 @@ const FromScratch = ({
               <AutopilotRepliesTurnedOn control={control} /> */}
             </>
           )}
-          <div className='border-t border-gray-300 w-full' />
+          <div className="border-t border-gray-300 w-full" />
           <TeamMembersToUseInCampaign
-            errors={errors.teamMembers ? errors.teamMembers[0] : ""}
+            errors={errors.teamMembers ? errors.teamMembers[0] : ''}
             value={
               formData.teamMembers
                 ? formData.teamMembers.map((teamMember) => {
@@ -467,11 +488,15 @@ const FromScratch = ({
             handleInputChange={handleInputArrayChange}
           />
         </div>
-        <div className='flex justify-center gap-20 pt-90 '>
-          <Button className='w-125' buttonStyle='secondary' onClick={onPrevious}>
+        <div className="flex justify-center gap-20 pt-90 ">
+          <Button
+            className="w-125"
+            buttonStyle="secondary"
+            onClick={onPrevious}
+          >
             Back
           </Button>
-          <Button className='w-125' type='submit'>
+          <Button className="w-125" type="submit">
             Next
           </Button>
         </div>

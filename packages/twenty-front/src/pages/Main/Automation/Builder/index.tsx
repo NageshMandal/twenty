@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -7,32 +7,36 @@ import ReactFlow, {
   addEdge,
   getConnectedEdges,
   Edge,
-} from "reactflow";
-import "reactflow/dist/style.css";
-import { toast } from "react-toastify";
-import { v4 as uuidv4 } from "uuid";
-import { RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
+} from 'reactflow';
+import 'reactflow/dist/style.css';
+import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
+import { RiFullscreenFill, RiFullscreenExitLine } from 'react-icons/ri';
 
-import AddActionNode from "./AddActionNode";
-import addNewNode from "./AddNewNode"; // Import the addNewNode function
-import Button from "src/components/base/Button";
-import SplashScreen from "src/components/modules/SplashScreen";
-import addDelayNode from "./AddDelayNode";
-import axios from "src/utils/functions/axios";
-import workflowTemplate, { FlowchartNode } from "./WorkflowTemplate";
-import { automationMenu } from "./AutomationMenu";
-import { automationSelector, setBuilderScreenMode } from "src/store/Automation";
-import { preBuiltTemplateList } from "./PreBuiltTemplates";
-import { useAppDispatch, useAppSelector } from "src/hook/redux/useStore";
-import addAINode from "./AddAiNode";
-import AddAiActionNode from "./AddAiActionNode";
-import AddAiActionEdge from "./AddAiActionEdge";
-import { workflowAutomationsArray } from "./TemplateFormOptions";
-import Checkbox from "src/components/base/Checkbox";
-import { Controller, useForm } from "react-hook-form";
+import AddActionNode from './AddActionNode';
+import addNewNode from './AddNewNode'; // Import the addNewNode function
+import Button from '../../../../components/base/Button';
+import SplashScreen from '../../../../components/modules/SplashScreen';
+import addDelayNode from './AddDelayNode';
+import axios from '../../../../utils/functions/axios';
+import workflowTemplate, { FlowchartNode } from './WorkflowTemplate';
+import { automationMenu } from './AutomationMenu';
+import {
+  automationSelector,
+  setBuilderScreenMode,
+} from '../../../../store/Automation';
+import { preBuiltTemplateList } from './PreBuiltTemplates';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../hooks/redux/useStore';
+import addAINode from './AddAiNode';
+import AddAiActionNode from './AddAiActionNode';
+import AddAiActionEdge from './AddAiActionEdge';
+import { workflowAutomationsArray } from './TemplateFormOptions';
+import { useForm } from 'react-hook-form';
 // import Switch from "src/components/base/Switch";
-import { Switch } from "@headlessui/react";
-import { handleAisdrSetup } from "./handleAisdrSetup";
+import { handleAisdrSetup } from './handleAisdrSetup';
 
 interface FormData {
   [key: string]: string | { value: string; label: string };
@@ -46,13 +50,13 @@ const initialNodes = [
   {
     id: initialNodeUId,
     position: { x: centerX - 300, y: 30 },
-    dragHandle: ".drag",
+    dragHandle: '.drag',
     data: {
       isFormField: false,
       isRootUrlCorrect: true,
       isDelay: false,
-      label: "Add Action",
-      choosenFunction: "linkedin",
+      label: 'Add Action',
+      choosenFunction: 'linkedin',
       isInitialNode: true,
       isDropDownDisabled: false,
       menuData: automationMenu.options.map((option) => ({
@@ -62,23 +66,26 @@ const initialNodes = [
       formData: {},
       isOnStep: 1,
     },
-    type: "addActionNode",
+    type: 'addActionNode',
     isConnectable: false,
   },
 ];
 const initialEdges: Edge[] = [];
 const proOptions = { hideAttribution: true };
-const nodeTypes = { addActionNode: AddActionNode, addAiActionNode: AddAiActionNode };
+const nodeTypes = {
+  addActionNode: AddActionNode,
+  addAiActionNode: AddAiActionNode,
+};
 const edgeTypes = { addAiActionEdge: AddAiActionEdge };
 
 let newWorkflowTemplate = { ...workflowTemplate };
 
-newWorkflowTemplate.name = new Date().toLocaleString("en-US", {
-  month: "long",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-  second: "numeric",
+newWorkflowTemplate.name = new Date().toLocaleString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
   hour12: true, // Include AM/PM format
 });
 
@@ -86,7 +93,9 @@ type Props = {
   templateName?: string;
   workflowId?: number;
   summerWorkflowId?: any;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onBackTab: Function;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onNextTab: Function;
   rWorkflowTemplate?: any;
   leadTemplateName?: any;
@@ -113,7 +122,8 @@ const Builder: React.FC<Props> = ({
   const copyOfInitNode = JSON.parse(JSON.stringify(initialNodes));
   const copyOfInitEdge = [...initialEdges];
   const [nodes, setNodes, onNodesChange] = useNodesState(copyOfInitNode);
-  const [oldNodes, setOldNodes, onOldNodesChange] = useNodesState(copyOfInitNode);
+  const [oldNodes, setOldNodes, onOldNodesChange] =
+    useNodesState(copyOfInitNode);
   const [edges, setEdges, onEdgesChange] = useEdgesState(copyOfInitEdge);
 
   const [isOldNodeLoading, setIsOldNodeLoading] = useState(true);
@@ -121,7 +131,7 @@ const Builder: React.FC<Props> = ({
   const [isNextPending, setIsNextPending] = useState(false);
   const { control, handleSubmit } = useForm();
 
-  console.log("setTemplateName", templateName);
+  console.log('setTemplateName', templateName);
 
   const emailTemplates = async () => {
     setIsOldNodeLoading(true);
@@ -130,36 +140,44 @@ const Builder: React.FC<Props> = ({
         `${process.env.REACT_APP_PLAYBOOK_API_URL}/templates`,
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-        }
+        },
       );
       // toast.success("Email Template Loaded Successfully");
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (response) {
         // console.log("response : " + JSON.stringify(response));
       }
     } catch (error) {
-      console.error("Email Template Loading:", error);
+      console.error('Email Template Loading:', error);
       // toast.error("Email Template Not Loaded");
     }
     setIsOldNodeLoading(false);
   };
 
   let recommendedTemplate = useMemo(() => {
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (templateName) {
-      const template = preBuiltTemplateList?.find((item) => item.name === templateName);
+      const template = preBuiltTemplateList?.find(
+        (item) => item.name === templateName,
+      );
       return template;
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     } else if (leadTemplateName) {
-      const template = preBuiltTemplateList?.find((item) => item.name === leadTemplateName);
+      const template = preBuiltTemplateList?.find(
+        (item) => item.name === leadTemplateName,
+      );
       return template;
     }
   }, [templateName, leadTemplateName]);
   // console.log("recommendedTemplate: ", recommendedTemplate);
   // console.log("leadTemplateName: ", recommendedTemplate);
 
-  console.log("lead template name", leadTemplateName);
+  console.log('lead template name', leadTemplateName);
 
   let rWorkflowTemplateToLoad = useMemo(() => {
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (rWorkflowTemplate) {
       return rWorkflowTemplate;
     }
@@ -217,15 +235,17 @@ const Builder: React.FC<Props> = ({
         const isFormField = item.data.isFormField;
         const isRootUrlCorrect = item.data.isRootUrlCorrect;
         // const isFormData = !!Object.keys(item.data.formData).length;
-        const isFormData = item.data.formData && Object.keys(item.data.formData).length > 0;
+        const isFormData =
+          item.data.formData && Object.keys(item.data.formData).length > 0;
+        // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
         function hasMissingValues(obj: any) {
           // console.log("nodes missing c: " + (obj == undefined || obj == ""));
-          if (typeof obj !== "object") {
-            return obj === undefined || obj === "";
+          if (typeof obj !== 'object') {
+            return obj === undefined || obj === '';
           }
 
           for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(obj, key)) {
               const value = obj[key];
               if (value === undefined) return true;
               if (hasMissingValues(value)) {
@@ -240,9 +260,10 @@ const Builder: React.FC<Props> = ({
         const isEmpty = isFormData
           ? Object.keys(item.data.formData).length === 0 || // Check if the object is empty
             !!Object.values(item.data.formData).some((val) => {
-              console.log("nodes missing -c: " + JSON.stringify(val));
+              console.log('nodes missing -c: ' + JSON.stringify(val));
               //going to add optional form values here
               if (
+                // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
                 val === item.data.formData.imageUrl ||
                 item.data.formData.defineIcpAndPersona ||
                 item.data.formData.typesAndSignals
@@ -250,7 +271,10 @@ const Builder: React.FC<Props> = ({
                 return false; // Skip the check for imageUrl
               }
               const hasMissingVal = hasMissingValues(val);
-              console.log("nodes missing -chasMissingVal: " + JSON.stringify(hasMissingVal));
+              console.log(
+                'nodes missing -chasMissingVal: ' +
+                  JSON.stringify(hasMissingVal),
+              );
               return hasMissingVal;
             })
           : true;
@@ -277,6 +301,7 @@ const Builder: React.FC<Props> = ({
         // console.log("formData value: ", item.data.formData);
         // console.log("formData type: ", typeof item.data.formData);
         // console.log("isRootUrlCorrect: " + JSON.stringify(isRootUrlCorrect));
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (isFormField && (isEmpty || !isFormData || !isRootUrlCorrect)) {
           return true;
         }
@@ -286,7 +311,10 @@ const Builder: React.FC<Props> = ({
     return result;
   };
 
-  const onConnect = useCallback((params: any) => setEdges(addEdge(params, edges)), [edges]);
+  const onConnect = useCallback(
+    (params: any) => setEdges(addEdge(params, edges)),
+    [edges],
+  );
 
   const arrangeNodes = async () => {
     if (nodes.length > 0) {
@@ -294,9 +322,9 @@ const Builder: React.FC<Props> = ({
         .filter((node1, index) => {
           // Check if the current node is "Add Action" and the node above it has the label "Delay"
           if (
-            node1.data.label === "Add Action" &&
+            node1.data.label === 'Add Action' &&
             index > 0 &&
-            nodes[index - 1].data.label === "Delay"
+            nodes[index - 1].data.label === 'Delay'
             //   ||
             // (index > 0 && node1.data.label === "1-1 Only") ||
             // (index > 0 && node1.data.label === "1-1 + AutomatedAI") ||
@@ -333,7 +361,7 @@ const Builder: React.FC<Props> = ({
           const keysToInclude = [
             //   "searchURL",
             //   "profileNumber",
-            "messageField",
+            'messageField',
             //   "delayUnit",
             //   "delayValue",
             //   "withdrawal",
@@ -353,17 +381,18 @@ const Builder: React.FC<Props> = ({
             //   "companyName",
             //   "jobTitle",
             //   "groupUrl",
-            "templateId",
-            "mailboxId",
-            "isRotating",
-            "aiSdrPitchCTAId",
-            "aiSdrField",
-            "aiSdrAdditionalInfoField",
-            "aiSdrObjectionsField",
-            "aiSdrCompetitionsField",
-            "aiSdrAutomated",
+            'templateId',
+            'mailboxId',
+            'isRotating',
+            'aiSdrPitchCTAId',
+            'aiSdrField',
+            'aiSdrAdditionalInfoField',
+            'aiSdrObjectionsField',
+            'aiSdrCompetitionsField',
+            'aiSdrAutomated',
           ];
 
+          // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
           if (nodes[index].data) {
             // Create a dynamic type for nodes[index].data
             type DynamicData = {
@@ -375,15 +404,15 @@ const Builder: React.FC<Props> = ({
 
             // Iterate through the keys and assign them to flowchartNode.content if they exist
             for (const key of keysToInclude) {
+              // eslint-disable-next-line no-prototype-builtins
               if (dynamicData.hasOwnProperty(key)) {
                 // console.log("arraging adding keys: " + JSON.stringify(dynamicData));
                 // Use type assertion to suppress type error
-                flowchartNode.content[key as keyof typeof flowchartNode.content] = dynamicData[
-                  key
-                ] as any;
-                node1.data.formData[key as keyof typeof node1.data.formData] = dynamicData[
-                  key
-                ] as never;
+                flowchartNode.content[
+                  key as keyof typeof flowchartNode.content
+                ] = dynamicData[key] as any;
+                node1.data.formData[key as keyof typeof node1.data.formData] =
+                  dynamicData[key] as never;
               }
             }
           }
@@ -453,9 +482,9 @@ const Builder: React.FC<Props> = ({
         .filter((node) => {
           // Filter out nodes with label "1-1 only", "1-1 automated", and "add action"
           return (
-            node.data.label !== "1-1 Only" &&
-            node.data.label !== "1-1 AutoPilot" &&
-            node.data.label !== "Add Action"
+            node.data.label !== '1-1 Only' &&
+            node.data.label !== '1-1 AutoPilot' &&
+            node.data.label !== 'Add Action'
           );
         });
       setNodes(updatedNodes);
@@ -491,13 +520,16 @@ const Builder: React.FC<Props> = ({
       const selectedNode = deleted[0];
 
       // Find all children nodes and collect their IDs
+      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       function deleteNodesRecursive(nodeId: any) {
         const currentNode = nodes.find((node) => node.id === nodeId);
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (currentNode) {
           const connectedEdges = getConnectedEdges([currentNode], edges);
 
           connectedEdges.forEach((edge) => {
-            const connectedNodeId = edge.target === currentNode.id ? null : edge.target;
+            const connectedNodeId =
+              edge.target === currentNode.id ? null : edge.target;
             nodesToDelete.add(connectedNodeId);
             edgesToDelete.add(edge.id);
             deleteNodesRecursive(connectedNodeId);
@@ -506,15 +538,22 @@ const Builder: React.FC<Props> = ({
       }
 
       const parentEdge = edges.find((edge) => edge.target === selectedNode.id);
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (parentEdge) {
         const parentNodeId = parentEdge.source;
         nodesToDelete.add(parentNodeId);
 
         // Now, you can find the parent node using parentNodeId
-        const grandParentEdge = edges.find((edge) => edge.target === parentNodeId);
+        const grandParentEdge = edges.find(
+          (edge) => edge.target === parentNodeId,
+        );
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (grandParentEdge) {
           const grandParentNodeId = grandParentEdge.source;
-          const selectedNodeParent = nodes.find((node) => node.id === grandParentNodeId);
+          const selectedNodeParent = nodes.find(
+            (node) => node.id === grandParentNodeId,
+          );
+          // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
           if (selectedNodeParent) {
             selectedNodeParent.data.isDropDownDisabled = false;
           }
@@ -523,17 +562,21 @@ const Builder: React.FC<Props> = ({
       }
 
       setEdges((prevEdges) => {
-        const updatedEdges = prevEdges.filter((edge) => !edgesToDelete.has(edge.id));
+        const updatedEdges = prevEdges.filter(
+          (edge) => !edgesToDelete.has(edge.id),
+        );
         return updatedEdges;
       });
 
       setNodes((prevNodes) => {
-        const updatedNodes = prevNodes.filter((node) => !nodesToDelete.has(node.id));
+        const updatedNodes = prevNodes.filter(
+          (node) => !nodesToDelete.has(node.id),
+        );
         return updatedNodes;
       });
       // arrangeNodes();
     },
-    [nodes, edges, setNodes, setEdges]
+    [nodes, edges, setNodes, setEdges],
   );
   const addingDelayNode = (node: any, selectedOptionValue: any) => {
     // const nodesLength = nodes.length;
@@ -542,11 +585,12 @@ const Builder: React.FC<Props> = ({
     node.data.isDropDownDisabled = true;
     // node.data.isOnStep = nodesLength;
 
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (delayAdded) {
       delayAdded.newDelayNode.data.isDropDownDisabled = true;
       const prebuiltData: FormData = {
-        value: "Delay",
-        delayValue: "2",
+        value: 'Delay',
+        delayValue: '2',
       };
       const updatedFormData = {
         ...node.data.formData,
@@ -565,20 +609,30 @@ const Builder: React.FC<Props> = ({
     // const nodesLength = nodes.length;
     const nodesLength = node.data.isOnStep ? node.data.isOnStep : 1;
     if (
-      selectedOptionValue === "Linkedin Sales Navigator Search Extractor" ||
-      selectedOptionValue === "Linkedin Search Extractor"
+      selectedOptionValue === 'Linkedin Sales Navigator Search Extractor' ||
+      selectedOptionValue === 'Linkedin Search Extractor'
     ) {
       const delayAdded = addingDelayNode(node, selectedOptionValue);
-      const leftNode = addAINode(delayAdded?.newDelayNode, selectedOptionValue, "left");
+      const leftNode = addAINode(
+        delayAdded?.newDelayNode,
+        selectedOptionValue,
+        'left',
+      );
 
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (leftNode) {
         const { newAiNode, newAiEdge } = leftNode;
         setNodes((prevNodes) => [...prevNodes, newAiNode]);
         setEdges((prevEdges) => [...prevEdges, newAiEdge]);
       }
 
-      const rightNode = addAINode(delayAdded?.newDelayNode, selectedOptionValue, "right");
+      const rightNode = addAINode(
+        delayAdded?.newDelayNode,
+        selectedOptionValue,
+        'right',
+      );
 
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (rightNode) {
         const { newAiNode, newAiEdge } = rightNode;
         setNodes((prevNodes) => [...prevNodes, newAiNode]);
@@ -587,31 +641,36 @@ const Builder: React.FC<Props> = ({
 
       const result = addNewNode(delayAdded?.newDelayNode, selectedOptionValue);
 
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (result) {
         const { newNode, newEdge } = result;
         result.newNode.data.isOnStep = delayAdded?.newDelayNode.data.isOnStep
           ? delayAdded?.newDelayNode.data.isOnStep + 1
           : 0;
         result.newNode.position.y = result.newNode.position.y + 40;
-        result.newEdge.type = "addAiActionEdge";
-        result.newEdge.data.label = "Go With";
+        result.newEdge.type = 'addAiActionEdge';
+        result.newEdge.data.label = 'Go With';
         setNodes((prevNodes) => [...prevNodes, newNode]);
         setEdges((prevEdges) => [...prevEdges, newEdge]);
         result.newNode.data.isOnStep = delayAdded?.newDelayNode.data.isOnStep
           ? delayAdded?.newDelayNode.data.isOnStep
           : 0;
       }
-    } else if (selectedOptionValue === "1-1 Only" || selectedOptionValue === "1-1 AutoPilot") {
-      nodes[4].data.label = "1-1";
+    } else if (
+      selectedOptionValue === '1-1 Only' ||
+      selectedOptionValue === '1-1 AutoPilot'
+    ) {
+      nodes[4].data.label = '1-1';
       nodes[4].data.isDropDownDisabled = true;
-      nodes[4].data.choosenFunction = "other";
-      edges[3].data.label = "";
-      edges[3].type = "";
+      nodes[4].data.choosenFunction = 'other';
+      edges[3].data.label = '';
+      edges[3].type = '';
       setEdges(edges);
       const delayAdded = addingDelayNode(nodes[4], selectedOptionValue);
 
-      const result = addNewNode(delayAdded?.newDelayNode, "1-1");
+      const result = addNewNode(delayAdded?.newDelayNode, '1-1');
 
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (result) {
         const { newNode, newEdge } = result;
         result.newNode.data.isOnStep = delayAdded?.newDelayNode.data.isOnStep
@@ -623,59 +682,76 @@ const Builder: React.FC<Props> = ({
           ? delayAdded?.newDelayNode.data.isOnStep
           : 0;
       }
-      if (selectedOptionValue === "1-1 AutoPilot" && result) {
-        result.newNode.data.label = "Automated AI";
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
+      if (selectedOptionValue === '1-1 AutoPilot' && result) {
+        result.newNode.data.label = 'Automated AI';
         result.newNode.data.isDropDownDisabled = true;
-        const delayAdded1 = addingDelayNode(result.newNode, selectedOptionValue);
-        const resultaai = addNewNode(delayAdded1?.newDelayNode, "Automated AI");
+        const delayAdded1 = addingDelayNode(
+          result.newNode,
+          selectedOptionValue,
+        );
+        const resultaai = addNewNode(delayAdded1?.newDelayNode, 'Automated AI');
 
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (resultaai) {
           const { newNode, newEdge } = resultaai;
-          resultaai.newNode.data.isOnStep = delayAdded1?.newDelayNode.data.isOnStep
+          resultaai.newNode.data.isOnStep = delayAdded1?.newDelayNode.data
+            .isOnStep
             ? delayAdded1?.newDelayNode.data.isOnStep + 2
             : 0;
           setNodes((prevNodes) => [...prevNodes, newNode]);
           setEdges((prevEdges) => [...prevEdges, newEdge]);
-          resultaai.newNode.data.isOnStep = delayAdded1?.newDelayNode.data.isOnStep
+          resultaai.newNode.data.isOnStep = delayAdded1?.newDelayNode.data
+            .isOnStep
             ? delayAdded1?.newDelayNode.data.isOnStep + 1
             : 0;
         }
       }
 
       setNodes((prevNodes) => {
-        const updatedNodes = prevNodes.filter((node1) => node1.data.label !== "1-1 Only");
+        const updatedNodes = prevNodes.filter(
+          (node1) => node1.data.label !== '1-1 Only',
+        );
         return updatedNodes;
       });
       setNodes((prevNodes) => {
-        const updatedNodes = prevNodes.filter((node1) => node1.data.label !== "1-1 AutoPilot");
+        const updatedNodes = prevNodes.filter(
+          (node1) => node1.data.label !== '1-1 AutoPilot',
+        );
         return updatedNodes;
       });
-    } else if (selectedOptionValue === "Visited Website") {
+    } else if (selectedOptionValue === 'Visited Website') {
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (edges[3]) {
-        edges[3].data.label = "";
-        edges[3].type = "";
+        edges[3].data.label = '';
+        edges[3].type = '';
         setEdges(edges);
       }
       setNodes((prevNodes) => {
-        const updatedNodes = prevNodes.filter((node1) => node1.data.label !== "1-1 Only");
+        const updatedNodes = prevNodes.filter(
+          (node1) => node1.data.label !== '1-1 Only',
+        );
         return updatedNodes;
       });
       setNodes((prevNodes) => {
-        const updatedNodes = prevNodes.filter((node1) => node1.data.label !== "1-1 AutoPilot");
+        const updatedNodes = prevNodes.filter(
+          (node1) => node1.data.label !== '1-1 AutoPilot',
+        );
         return updatedNodes;
       });
       const delayAdded = addDelayNode(node, selectedOptionValue);
       node.data.isDropDownDisabled = true;
-      if (selectedOptionValue == "Send Mail") {
-        node.data.choosenFunction = "mail";
+      if (selectedOptionValue == 'Send Mail') {
+        node.data.choosenFunction = 'mail';
       }
       // node.data.isOnStep = nodesLength;
 
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (delayAdded) {
         delayAdded.newDelayNode.data.isDropDownDisabled = true;
         const prebuiltData: FormData = {
-          value: "Delay",
-          delayValue: "2",
+          value: 'Delay',
+          delayValue: '2',
         };
         const updatedFormData = {
           ...node.data.formData,
@@ -689,48 +765,56 @@ const Builder: React.FC<Props> = ({
         delayAdded.newDelayNode.data.formData = updatedFormData;
         const result = addNewNode(delayAdded.newDelayNode, selectedOptionValue);
 
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (result) {
           const { newNode, newEdge } = result;
-          result.newNode.data.isOnStep = delayAdded.newDelayNode.data.isOnStep + 1;
-          newNode.data.label = "Prospect on Linkedin";
+          result.newNode.data.isOnStep =
+            delayAdded.newDelayNode.data.isOnStep + 1;
+          newNode.data.label = 'Prospect on Linkedin';
           newNode.data.isDropDownDisabled = true;
-          newNode.data.choosenFunction = "linkedin";
+          newNode.data.choosenFunction = 'linkedin';
           setNodes((prevNodes) => [...prevNodes, newNode]);
           setEdges((prevEdges) => [...prevEdges, newEdge]);
           result.newNode.data.isOnStep = delayAdded.newDelayNode.data.isOnStep;
-          createNewNode(result.newNode, "Prospect on Linkedin");
+          createNewNode(result.newNode, 'Prospect on Linkedin');
         }
       }
     } else {
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (edges[3]) {
-        edges[3].data.label = "";
-        edges[3].type = "";
+        edges[3].data.label = '';
+        edges[3].type = '';
         setEdges(edges);
       }
       setNodes((prevNodes) => {
-        const updatedNodes = prevNodes.filter((node1) => node1.data.label !== "1-1 Only");
+        const updatedNodes = prevNodes.filter(
+          (node1) => node1.data.label !== '1-1 Only',
+        );
         return updatedNodes;
       });
       setNodes((prevNodes) => {
-        const updatedNodes = prevNodes.filter((node1) => node1.data.label !== "1-1 AutoPilot");
+        const updatedNodes = prevNodes.filter(
+          (node1) => node1.data.label !== '1-1 AutoPilot',
+        );
         return updatedNodes;
       });
       const delayAdded = addDelayNode(node, selectedOptionValue);
       node.data.isDropDownDisabled = true;
       const choosenFtn = workflowAutomationsArray.find(
-        (item) => item.title === selectedOptionValue
+        (item) => item.title === selectedOptionValue,
       )?.choosenFunction;
       node.data.choosenFunction = choosenFtn;
-      if (selectedOptionValue == "Send Mail") {
-        node.data.choosenFunction = "mail";
+      if (selectedOptionValue == 'Send Mail') {
+        node.data.choosenFunction = 'mail';
       }
       // node.data.isOnStep = nodesLength;
 
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (delayAdded) {
         delayAdded.newDelayNode.data.isDropDownDisabled = true;
         const prebuiltData: FormData = {
-          value: "Delay",
-          delayValue: "2",
+          value: 'Delay',
+          delayValue: '2',
         };
         const updatedFormData = {
           ...node.data.formData,
@@ -745,10 +829,12 @@ const Builder: React.FC<Props> = ({
         // arrangeNodes();
         const result = addNewNode(delayAdded.newDelayNode, selectedOptionValue);
 
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (result) {
           const { newNode, newEdge } = result;
           // result.newNode.data.isOnStep = nodesLength + 2;
-          result.newNode.data.isOnStep = delayAdded.newDelayNode.data.isOnStep + 1;
+          result.newNode.data.isOnStep =
+            delayAdded.newDelayNode.data.isOnStep + 1;
           setNodes((prevNodes) => [...prevNodes, newNode]);
           setEdges((prevEdges) => [...prevEdges, newEdge]);
           result.newNode.data.isOnStep = delayAdded.newDelayNode.data.isOnStep;
@@ -764,18 +850,19 @@ const Builder: React.FC<Props> = ({
 
   const onNodeClick = useCallback(
     (event: any, node: any) => {
-      if (node.type === "addActionNode" || node.type === "addAiActionNode") {
+      if (node.type === 'addActionNode' || node.type === 'addAiActionNode') {
         // console.log("nodeClicked" + JSON.stringify(event.target.getAttribute("id")));
         // console.log("Clicked Element:", event.target); // Log the entire event.target object
         // console.log("nodeClicked ID:", event.target.id);
         if (
           // (event.target && event.target.tagName === "OPTION") ||
+          // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
           (event.target &&
-            event.target.id === "nodeSelectId" &&
-            event.target.value !== "Add Action") ||
+            event.target.id === 'nodeSelectId' &&
+            event.target.value !== 'Add Action') ||
           (event.target &&
-            event.target.id === "nodeSelectOption" &&
-            event.target.value !== "Add Action")
+            event.target.id === 'nodeSelectOption' &&
+            event.target.value !== 'Add Action')
         ) {
           // const selectedOptionValue = event.target.value;
           // if (node.id === "1") {
@@ -790,17 +877,22 @@ const Builder: React.FC<Props> = ({
           // console.log("New Node Added: " + JSON.stringify(nodes));
         }
         // Check if the clicked element is the "Add" button
-        if (event.target && event.target.textContent === "Add") {
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
+        if (event.target && event.target.textContent === 'Add') {
           // Handle the "Add" button click
           // createNewNode(node);
         }
-        if (event.target && event.target.id === "delete" && node.id !== initialNodeUId) {
+        if (
+          event.target &&
+          event.target.id === 'delete' &&
+          node.id !== initialNodeUId
+        ) {
           onNodesDelete([node]);
         }
       }
       arrangeNodes();
     },
-    [nodes, setNodes, setEdges]
+    [nodes, setNodes, setEdges],
   );
 
   const onSaveWorkflowClick = async () => {
@@ -808,13 +900,15 @@ const Builder: React.FC<Props> = ({
     arrangeNodes();
     const missingNodes = missingFormNodes();
     if (missingNodes && missingNodes.length) {
-      const missing = missingNodes?.join(", ");
-      toast.warn(`${missing} ${missingNodes?.length === 1 ? "has" : "have"} missing value!`);
+      const missing = missingNodes?.join(', ');
+      toast.warn(
+        `${missing} ${missingNodes?.length === 1 ? 'has' : 'have'} missing value!`,
+      );
       restoreOldNodes();
     } else {
       setIsNextPending(true);
-      if (nodes.length < 1 || nodes[0].data.label === "Add Action") {
-        toast.warn("No nodes have been added. Please add nodes before saving.");
+      if (nodes.length < 1 || nodes[0].data.label === 'Add Action') {
+        toast.warn('No nodes have been added. Please add nodes before saving.');
         setIsNextPending(false);
         setIsSaveWorkflowPending(false);
         restoreOldNodes();
@@ -830,18 +924,18 @@ const Builder: React.FC<Props> = ({
             JSON.stringify(newWorkflowTemplate),
             {
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
-            }
+            },
           );
-          toast.success("Workflow updated successfully!");
+          toast.success('Workflow updated successfully!');
           setIsNextPending(false);
           setIsSaveWorkflowPending(false);
           restoreOldNodes();
           return true;
         } catch (error) {
-          toast.error("Failed to save workflow. Please try again.");
-          console.error("Failed to save workflow." + error);
+          toast.error('Failed to save workflow. Please try again.');
+          console.error('Failed to save workflow.' + error);
           setIsNextPending(false);
           setIsSaveWorkflowPending(false);
           restoreOldNodes();
@@ -857,24 +951,24 @@ const Builder: React.FC<Props> = ({
             JSON.stringify(newWorkflowTemplate),
             {
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
-            }
+            },
           );
-          toast.success("Workflow saved successfully!");
+          toast.success('Workflow saved successfully!');
           if (response) {
             // console.log("response onsave : " + JSON.stringify(response.data.id));
             newWorkflowTemplate.id = response.data.id;
           }
-          if (newWorkflowTemplate.status === "created") {
+          if (newWorkflowTemplate.status === 'created') {
             const toSend = `remove_prospect_on_li_reply=${1}&remove_prospect_on_email_reply=${1}`;
             const response1 = await axios(true).put(
               `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${newWorkflowTemplate?.id}/settings?${toSend}`,
-              {}
+              {},
             );
             const receiveData = response1.status.toString();
-            if (receiveData === "success") {
-              toast.success("Condition Setting saved successfully!");
+            if (receiveData === 'success') {
+              toast.success('Condition Setting saved successfully!');
             }
           }
           setIsNextPending(false);
@@ -882,8 +976,8 @@ const Builder: React.FC<Props> = ({
           restoreOldNodes();
           return true;
         } catch (error) {
-          console.error("Error saving workflow:", error);
-          toast.error("Failed to save workflow. Please try again.");
+          console.error('Error saving workflow:', error);
+          toast.error('Failed to save workflow. Please try again.');
           setIsNextPending(false);
           setIsSaveWorkflowPending(false);
           restoreOldNodes();
@@ -904,16 +998,16 @@ const Builder: React.FC<Props> = ({
       // arrangeNodes();
       const response = await axios(true).get(
         `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${haveWorkflowId}`,
-        {}
+        {},
       );
 
       newWorkflowTemplate.id = response.data.id;
       newWorkflowTemplate.userId = response.data.user_id;
       jsonData = response.data;
     } catch (error) {
-      console.error("Error saving workflow:", error);
+      console.error('Error saving workflow:', error);
     }
-    if (typeof jsonData !== "string") {
+    if (typeof jsonData !== 'string') {
       jsonData = JSON.stringify(jsonData);
     }
     jsonData = JSON.parse(jsonData);
@@ -934,133 +1028,140 @@ const Builder: React.FC<Props> = ({
     //     // arrangeNodes();
     //   }
     // }
-    newWorkflowTemplate.flowchart = jsonData.flowchart.map((node: any, index: any, array: any) => {
-      setIsOldNodeLoading(true);
-      const selectedOption = node.content.value;
-      // Create a new FlowchartNode and assign values
-      const flowchartNode: FlowchartNode = {
-        choosenFunction: node.choosenFunction,
-        content: {
-          value: node.content.value,
-          autoStopCondition: node.content.autoStopCondition || undefined,
-          schedulesOptions: node.content.schedulesOptions || undefined,
-          messageField: node.content.messageField || undefined,
-          templateId: node.content.templateId || undefined,
-          mailboxId: node.content.mailboxId || undefined,
-          isRotating: node.content.isRotating || undefined,
-          aiSdrPitchCTAId: node.content.aiSdrPitchCTAId || undefined,
-          aiSdrField: node.content.aiSdrField || undefined,
-          aiSdrAdditionalInfoField: node.content.aiSdrAdditionalInfoField || undefined,
-          aiSdrObjectionsField: node.content.aiSdrObjectionsField || undefined,
-          aiSdrCompetitionsField: node.content.aiSdrCompetitionsField || undefined,
-          aiSdrAutomated: node.content.aiSdrAutomated || undefined,
-          delayValue: node.content.delayValue || undefined,
-          delayUnit: node.content.delayUnit || undefined,
-          proficiency: node.content.proficiency || undefined,
-          relationship: node.content.relationship || undefined,
-        },
-        id: node.id,
-        prevNode: node.prevNode,
-        stats: node.stats || undefined,
-      };
-      if (index === 0 && oldAddedNode) {
-        const nodeIndex = nodes.findIndex((nodeByRoot) => nodeByRoot.id === oldAddedNode?.id);
+    newWorkflowTemplate.flowchart = jsonData.flowchart.map(
+      (node: any, index: any, array: any) => {
+        setIsOldNodeLoading(true);
+        const selectedOption = node.content.value;
+        // Create a new FlowchartNode and assign values
+        const flowchartNode: FlowchartNode = {
+          choosenFunction: node.choosenFunction,
+          content: {
+            value: node.content.value,
+            autoStopCondition: node.content.autoStopCondition || undefined,
+            schedulesOptions: node.content.schedulesOptions || undefined,
+            messageField: node.content.messageField || undefined,
+            templateId: node.content.templateId || undefined,
+            mailboxId: node.content.mailboxId || undefined,
+            isRotating: node.content.isRotating || undefined,
+            aiSdrPitchCTAId: node.content.aiSdrPitchCTAId || undefined,
+            aiSdrField: node.content.aiSdrField || undefined,
+            aiSdrAdditionalInfoField:
+              node.content.aiSdrAdditionalInfoField || undefined,
+            aiSdrObjectionsField:
+              node.content.aiSdrObjectionsField || undefined,
+            aiSdrCompetitionsField:
+              node.content.aiSdrCompetitionsField || undefined,
+            aiSdrAutomated: node.content.aiSdrAutomated || undefined,
+            delayValue: node.content.delayValue || undefined,
+            delayUnit: node.content.delayUnit || undefined,
+            proficiency: node.content.proficiency || undefined,
+            relationship: node.content.relationship || undefined,
+          },
+          id: node.id,
+          prevNode: node.prevNode,
+          stats: node.stats || undefined,
+        };
+        if (index === 0 && oldAddedNode) {
+          const nodeIndex = nodes.findIndex(
+            (nodeByRoot) => nodeByRoot.id === oldAddedNode?.id,
+          );
 
-        if (nodeIndex !== -1) {
-          // Create a new node object with the updated ID and other properties
-          const updatedNode = {
-            ...nodes[nodeIndex], // Copy all properties of the old node
-            id: node.id, // Update the ID to the new ID
-            status: node.status,
-            data: {
-              ...nodes[nodeIndex].data, // Copy the data object
-              label: selectedOption,
-              isDropDownDisabled: true,
-              choosenFunction: node.choosenFunction,
+          if (nodeIndex !== -1) {
+            // Create a new node object with the updated ID and other properties
+            const updatedNode = {
+              ...nodes[nodeIndex], // Copy all properties of the old node
+              id: node.id, // Update the ID to the new ID
+              status: node.status,
+              data: {
+                ...nodes[nodeIndex].data, // Copy the data object
+                label: selectedOption,
+                isDropDownDisabled: true,
+                choosenFunction: node.choosenFunction,
+                isNewNode: false,
+                isOnStep: 1,
+                ...node.content,
+              },
+            };
+
+            const updatedNodes = nodes.map((nodebyroot, indexnodebyroot) => {
+              if (indexnodebyroot === nodeIndex) {
+                return updatedNode; // Replace the old node with the updated one
+              }
+              return nodebyroot; // Keep other nodes unchanged
+            });
+            // Set the state to the updatedNodes array, effectively removing the old node
+            setNodes(updatedNodes);
+            oldAddedNode = updatedNode;
+            // console.log("node --------- data:", updatedNode);
+          }
+          // oldAddedNode.data.label = selectedOption;
+          // oldAddedNode.data.isDropDownDisabled = true;
+          // setNodes((prevNodes) => [...prevNodes]);
+          // arrangeNodes();
+        } else if (oldAddedNode && node.choosenFunction === 'timer') {
+          newAddedNode = addDelayNode(oldAddedNode, selectedOption, node.id);
+
+          if (newAddedNode) {
+            const { newDelayNode, newDelayEdge } = newAddedNode;
+            newAddedNode.newDelayNode.data = {
+              ...newAddedNode.newDelayNode.data, // Copy existing data properties
+              ...node.content, // Assign new properties from node.content
+              label: selectedOption, // Override the label property
+              isDropDownDisabled: true, // Override the isDropDownDisabled property
+              isOnStep: oldAddedNode.data.isOnStep + 1,
+            };
+            // newAddedNode.newDelayNode.data.label = selectedOption;
+            // newAddedNode.newDelayNode.data.isDropDownDisabled = true;
+            setNodes((prevNodes) => [...prevNodes, newDelayNode]);
+            setEdges((prevEdges) => [...prevEdges, newDelayEdge]);
+            // const addedNode = nodes.find((n) => n.id === newNode.id);
+            // console.log("New Node: " + JSON.stringify(nodes));
+            // arrangeNodes();
+            prevOldAddedNode = oldAddedNode;
+            oldAddedNode = newAddedNode.newDelayNode;
+          }
+        } else if (oldAddedNode) {
+          newAddedNode = addNewNode(oldAddedNode, selectedOption, node.id);
+
+          if (newAddedNode) {
+            const { newNode, newEdge } = newAddedNode;
+            newAddedNode.newNode.data = {
+              ...newAddedNode.newNode.data, // Copy existing data properties
+              ...node.content, // Assign new properties from node.content
+              label: selectedOption, // Override the label property
+              isDropDownDisabled: true, // Override the isDropDownDisabled property
               isNewNode: false,
-              isOnStep: 1,
-              ...node.content,
-            },
-          };
-
-          const updatedNodes = nodes.map((nodebyroot, indexnodebyroot) => {
-            if (indexnodebyroot === nodeIndex) {
-              return updatedNode; // Replace the old node with the updated one
-            }
-            return nodebyroot; // Keep other nodes unchanged
-          });
-          // Set the state to the updatedNodes array, effectively removing the old node
-          setNodes(updatedNodes);
-          oldAddedNode = updatedNode;
-          // console.log("node --------- data:", updatedNode);
+              isOnStep: oldAddedNode.data.isOnStep,
+            };
+            // newAddedNode.newNode.data.label = selectedOption;
+            // newAddedNode.newNode.data.isDropDownDisabled = true;
+            setNodes((prevNodes) => [...prevNodes, newNode]);
+            setEdges((prevEdges) => [...prevEdges, newEdge]);
+            // const addedNode = nodes.find((n) => n.id === newNode.id);
+            // console.log("New Node: " + JSON.stringify(nodes));
+            // arrangeNodes();
+            prevOldAddedNode = oldAddedNode;
+            oldAddedNode = newAddedNode.newNode;
+          }
         }
-        // oldAddedNode.data.label = selectedOption;
-        // oldAddedNode.data.isDropDownDisabled = true;
-        // setNodes((prevNodes) => [...prevNodes]);
-        // arrangeNodes();
-      } else if (oldAddedNode && node.choosenFunction === "timer") {
-        newAddedNode = addDelayNode(oldAddedNode, selectedOption, node.id);
+        if (array.length - 1 === index) {
+          newAddedNode = addNewNode(oldAddedNode, prevOldAddedNode?.data.label);
 
-        if (newAddedNode) {
-          const { newDelayNode, newDelayEdge } = newAddedNode;
-          newAddedNode.newDelayNode.data = {
-            ...newAddedNode.newDelayNode.data, // Copy existing data properties
-            ...node.content, // Assign new properties from node.content
-            label: selectedOption, // Override the label property
-            isDropDownDisabled: true, // Override the isDropDownDisabled property
-            isOnStep: oldAddedNode.data.isOnStep + 1,
-          };
-          // newAddedNode.newDelayNode.data.label = selectedOption;
-          // newAddedNode.newDelayNode.data.isDropDownDisabled = true;
-          setNodes((prevNodes) => [...prevNodes, newDelayNode]);
-          setEdges((prevEdges) => [...prevEdges, newDelayEdge]);
-          // const addedNode = nodes.find((n) => n.id === newNode.id);
-          // console.log("New Node: " + JSON.stringify(nodes));
-          // arrangeNodes();
-          prevOldAddedNode = oldAddedNode;
-          oldAddedNode = newAddedNode.newDelayNode;
+          if (newAddedNode) {
+            const { newNode, newEdge } = newAddedNode;
+            newNode.data.isOnStep = oldAddedNode?.data.isOnStep;
+            setNodes((prevNodes) => [...prevNodes, newNode]);
+            setEdges((prevEdges) => [...prevEdges, newEdge]);
+            // const addedNode = nodes.find((n) => n.id === newNode.id);
+            // console.log("New Node: " + JSON.stringify(nodes));
+            // arrangeNodes();
+            oldAddedNode = newAddedNode.newNode;
+          }
         }
-      } else if (oldAddedNode) {
-        newAddedNode = addNewNode(oldAddedNode, selectedOption, node.id);
-
-        if (newAddedNode) {
-          const { newNode, newEdge } = newAddedNode;
-          newAddedNode.newNode.data = {
-            ...newAddedNode.newNode.data, // Copy existing data properties
-            ...node.content, // Assign new properties from node.content
-            label: selectedOption, // Override the label property
-            isDropDownDisabled: true, // Override the isDropDownDisabled property
-            isNewNode: false,
-            isOnStep: oldAddedNode.data.isOnStep,
-          };
-          // newAddedNode.newNode.data.label = selectedOption;
-          // newAddedNode.newNode.data.isDropDownDisabled = true;
-          setNodes((prevNodes) => [...prevNodes, newNode]);
-          setEdges((prevEdges) => [...prevEdges, newEdge]);
-          // const addedNode = nodes.find((n) => n.id === newNode.id);
-          // console.log("New Node: " + JSON.stringify(nodes));
-          // arrangeNodes();
-          prevOldAddedNode = oldAddedNode;
-          oldAddedNode = newAddedNode.newNode;
-        }
-      }
-      if (array.length - 1 === index) {
-        newAddedNode = addNewNode(oldAddedNode, prevOldAddedNode?.data.label);
-
-        if (newAddedNode) {
-          const { newNode, newEdge } = newAddedNode;
-          newNode.data.isOnStep = oldAddedNode?.data.isOnStep;
-          setNodes((prevNodes) => [...prevNodes, newNode]);
-          setEdges((prevEdges) => [...prevEdges, newEdge]);
-          // const addedNode = nodes.find((n) => n.id === newNode.id);
-          // console.log("New Node: " + JSON.stringify(nodes));
-          // arrangeNodes();
-          oldAddedNode = newAddedNode.newNode;
-        }
-      }
-      setIsOldNodeLoading(false);
-      return flowchartNode;
-    });
+        setIsOldNodeLoading(false);
+        return flowchartNode;
+      },
+    );
     // console.log("newWorkflowTemplate After Loading: " + JSON.stringify(newWorkflowTemplate));
   };
 
@@ -1087,133 +1188,140 @@ const Builder: React.FC<Props> = ({
     //     // arrangeNodes();
     //   }
     // }
-    newWorkflowTemplate.flowchart = jsonData.flowchart.map((node: any, index: any, array: any) => {
-      setIsOldNodeLoading(true);
-      const selectedOption = node.content.value;
-      // Create a new FlowchartNode and assign values
-      const flowchartNode: FlowchartNode = {
-        choosenFunction: node.choosenFunction,
-        content: {
-          value: node.content.value,
-          autoStopCondition: node.content.autoStopCondition || undefined,
-          messageField: node.content.messageField || undefined,
-          templateId: node.content.templateId || undefined,
-          mailboxId: node.content.mailboxId || undefined,
-          isRotating: node.content.isRotating || undefined,
-          aiSdrPitchCTAId: node.content.aiSdrPitchCTAId || undefined,
-          aiSdrField: node.content.aiSdrField || undefined,
-          aiSdrAdditionalInfoField: node.content.aiSdrAdditionalInfoField || undefined,
-          aiSdrObjectionsField: node.content.aiSdrObjectionsField || undefined,
-          aiSdrCompetitionsField: node.content.aiSdrCompetitionsField || undefined,
-          aiSdrAutomated: node.content.aiSdrAutomated || undefined,
-          delayValue: node.content.delayValue || undefined,
-          delayUnit: node.content.delayUnit || undefined,
-          proficiency: node.content.proficiency || undefined,
-          relationship: node.content.relationship || undefined,
-        },
-        id: node.id,
-        prevNode: node.prevNode,
-        stats: node.stats || undefined,
-      };
-      if (index === 0 && oldAddedNode) {
-        const nodeIndex = nodes.findIndex((nodeByRoot) => nodeByRoot.id === oldAddedNode?.id);
+    newWorkflowTemplate.flowchart = jsonData.flowchart.map(
+      (node: any, index: any, array: any) => {
+        setIsOldNodeLoading(true);
+        const selectedOption = node.content.value;
+        // Create a new FlowchartNode and assign values
+        const flowchartNode: FlowchartNode = {
+          choosenFunction: node.choosenFunction,
+          content: {
+            value: node.content.value,
+            autoStopCondition: node.content.autoStopCondition || undefined,
+            messageField: node.content.messageField || undefined,
+            templateId: node.content.templateId || undefined,
+            mailboxId: node.content.mailboxId || undefined,
+            isRotating: node.content.isRotating || undefined,
+            aiSdrPitchCTAId: node.content.aiSdrPitchCTAId || undefined,
+            aiSdrField: node.content.aiSdrField || undefined,
+            aiSdrAdditionalInfoField:
+              node.content.aiSdrAdditionalInfoField || undefined,
+            aiSdrObjectionsField:
+              node.content.aiSdrObjectionsField || undefined,
+            aiSdrCompetitionsField:
+              node.content.aiSdrCompetitionsField || undefined,
+            aiSdrAutomated: node.content.aiSdrAutomated || undefined,
+            delayValue: node.content.delayValue || undefined,
+            delayUnit: node.content.delayUnit || undefined,
+            proficiency: node.content.proficiency || undefined,
+            relationship: node.content.relationship || undefined,
+          },
+          id: node.id,
+          prevNode: node.prevNode,
+          stats: node.stats || undefined,
+        };
+        if (index === 0 && oldAddedNode) {
+          const nodeIndex = nodes.findIndex(
+            (nodeByRoot) => nodeByRoot.id === oldAddedNode?.id,
+          );
 
-        if (nodeIndex !== -1) {
-          // Create a new node object with the updated ID and other properties
-          const updatedNode = {
-            ...nodes[nodeIndex], // Copy all properties of the old node
-            id: node.id, // Update the ID to the new ID
-            status: node.status,
-            data: {
-              ...nodes[nodeIndex].data, // Copy the data object
-              label: selectedOption,
-              isDropDownDisabled: true,
-              choosenFunction: node.choosenFunction,
+          if (nodeIndex !== -1) {
+            // Create a new node object with the updated ID and other properties
+            const updatedNode = {
+              ...nodes[nodeIndex], // Copy all properties of the old node
+              id: node.id, // Update the ID to the new ID
+              status: node.status,
+              data: {
+                ...nodes[nodeIndex].data, // Copy the data object
+                label: selectedOption,
+                isDropDownDisabled: true,
+                choosenFunction: node.choosenFunction,
+                isNewNode: false,
+                isOnStep: 1,
+                ...node.content,
+              },
+            };
+
+            const updatedNodes = nodes.map((nodebyroot, indexnodebyroot) => {
+              if (indexnodebyroot === nodeIndex) {
+                return updatedNode; // Replace the old node with the updated one
+              }
+              return nodebyroot; // Keep other nodes unchanged
+            });
+            // Set the state to the updatedNodes array, effectively removing the old node
+            setNodes(updatedNodes);
+            oldAddedNode = updatedNode;
+            // console.log("node --------- data:", updatedNode);
+          }
+          // oldAddedNode.data.label = selectedOption;
+          // oldAddedNode.data.isDropDownDisabled = true;
+          // setNodes((prevNodes) => [...prevNodes]);
+          // arrangeNodes();
+        } else if (oldAddedNode && node.choosenFunction === 'timer') {
+          newAddedNode = addDelayNode(oldAddedNode, selectedOption, node.id);
+
+          if (newAddedNode) {
+            const { newDelayNode, newDelayEdge } = newAddedNode;
+            newAddedNode.newDelayNode.data = {
+              ...newAddedNode.newDelayNode.data, // Copy existing data properties
+              ...node.content, // Assign new properties from node.content
+              label: selectedOption, // Override the label property
+              isDropDownDisabled: true, // Override the isDropDownDisabled property
+              isOnStep: oldAddedNode.data.isOnStep + 1,
+            };
+            // newAddedNode.newDelayNode.data.label = selectedOption;
+            // newAddedNode.newDelayNode.data.isDropDownDisabled = true;
+            setNodes((prevNodes) => [...prevNodes, newDelayNode]);
+            setEdges((prevEdges) => [...prevEdges, newDelayEdge]);
+            // const addedNode = nodes.find((n) => n.id === newNode.id);
+            // console.log("New Node: " + JSON.stringify(nodes));
+            // arrangeNodes();
+            prevOldAddedNode = oldAddedNode;
+            oldAddedNode = newAddedNode.newDelayNode;
+          }
+        } else if (oldAddedNode) {
+          newAddedNode = addNewNode(oldAddedNode, selectedOption, node.id);
+
+          if (newAddedNode) {
+            const { newNode, newEdge } = newAddedNode;
+            newAddedNode.newNode.data = {
+              ...newAddedNode.newNode.data, // Copy existing data properties
+              ...node.content, // Assign new properties from node.content
+              label: selectedOption, // Override the label property
+              isDropDownDisabled: true, // Override the isDropDownDisabled property
               isNewNode: false,
-              isOnStep: 1,
-              ...node.content,
-            },
-          };
-
-          const updatedNodes = nodes.map((nodebyroot, indexnodebyroot) => {
-            if (indexnodebyroot === nodeIndex) {
-              return updatedNode; // Replace the old node with the updated one
-            }
-            return nodebyroot; // Keep other nodes unchanged
-          });
-          // Set the state to the updatedNodes array, effectively removing the old node
-          setNodes(updatedNodes);
-          oldAddedNode = updatedNode;
-          // console.log("node --------- data:", updatedNode);
+              isOnStep: oldAddedNode.data.isOnStep,
+            };
+            // newAddedNode.newNode.data.label = selectedOption;
+            // newAddedNode.newNode.data.isDropDownDisabled = true;
+            setNodes((prevNodes) => [...prevNodes, newNode]);
+            setEdges((prevEdges) => [...prevEdges, newEdge]);
+            // const addedNode = nodes.find((n) => n.id === newNode.id);
+            // console.log("New Node: " + JSON.stringify(nodes));
+            // arrangeNodes();
+            prevOldAddedNode = oldAddedNode;
+            oldAddedNode = newAddedNode.newNode;
+          }
         }
-        // oldAddedNode.data.label = selectedOption;
-        // oldAddedNode.data.isDropDownDisabled = true;
-        // setNodes((prevNodes) => [...prevNodes]);
-        // arrangeNodes();
-      } else if (oldAddedNode && node.choosenFunction === "timer") {
-        newAddedNode = addDelayNode(oldAddedNode, selectedOption, node.id);
+        if (array.length - 1 === index) {
+          newAddedNode = addNewNode(oldAddedNode, prevOldAddedNode?.data.label);
 
-        if (newAddedNode) {
-          const { newDelayNode, newDelayEdge } = newAddedNode;
-          newAddedNode.newDelayNode.data = {
-            ...newAddedNode.newDelayNode.data, // Copy existing data properties
-            ...node.content, // Assign new properties from node.content
-            label: selectedOption, // Override the label property
-            isDropDownDisabled: true, // Override the isDropDownDisabled property
-            isOnStep: oldAddedNode.data.isOnStep + 1,
-          };
-          // newAddedNode.newDelayNode.data.label = selectedOption;
-          // newAddedNode.newDelayNode.data.isDropDownDisabled = true;
-          setNodes((prevNodes) => [...prevNodes, newDelayNode]);
-          setEdges((prevEdges) => [...prevEdges, newDelayEdge]);
-          // const addedNode = nodes.find((n) => n.id === newNode.id);
-          // console.log("New Node: " + JSON.stringify(nodes));
-          // arrangeNodes();
-          prevOldAddedNode = oldAddedNode;
-          oldAddedNode = newAddedNode.newDelayNode;
+          if (newAddedNode) {
+            const { newNode, newEdge } = newAddedNode;
+            newNode.data.isOnStep = oldAddedNode?.data.isOnStep;
+            setNodes((prevNodes) => [...prevNodes, newNode]);
+            setEdges((prevEdges) => [...prevEdges, newEdge]);
+            // const addedNode = nodes.find((n) => n.id === newNode.id);
+            // console.log("New Node: " + JSON.stringify(nodes));
+            // arrangeNodes();
+            oldAddedNode = newAddedNode.newNode;
+          }
         }
-      } else if (oldAddedNode) {
-        newAddedNode = addNewNode(oldAddedNode, selectedOption, node.id);
-
-        if (newAddedNode) {
-          const { newNode, newEdge } = newAddedNode;
-          newAddedNode.newNode.data = {
-            ...newAddedNode.newNode.data, // Copy existing data properties
-            ...node.content, // Assign new properties from node.content
-            label: selectedOption, // Override the label property
-            isDropDownDisabled: true, // Override the isDropDownDisabled property
-            isNewNode: false,
-            isOnStep: oldAddedNode.data.isOnStep,
-          };
-          // newAddedNode.newNode.data.label = selectedOption;
-          // newAddedNode.newNode.data.isDropDownDisabled = true;
-          setNodes((prevNodes) => [...prevNodes, newNode]);
-          setEdges((prevEdges) => [...prevEdges, newEdge]);
-          // const addedNode = nodes.find((n) => n.id === newNode.id);
-          // console.log("New Node: " + JSON.stringify(nodes));
-          // arrangeNodes();
-          prevOldAddedNode = oldAddedNode;
-          oldAddedNode = newAddedNode.newNode;
-        }
-      }
-      if (array.length - 1 === index) {
-        newAddedNode = addNewNode(oldAddedNode, prevOldAddedNode?.data.label);
-
-        if (newAddedNode) {
-          const { newNode, newEdge } = newAddedNode;
-          newNode.data.isOnStep = oldAddedNode?.data.isOnStep;
-          setNodes((prevNodes) => [...prevNodes, newNode]);
-          setEdges((prevEdges) => [...prevEdges, newEdge]);
-          // const addedNode = nodes.find((n) => n.id === newNode.id);
-          // console.log("New Node: " + JSON.stringify(nodes));
-          // arrangeNodes();
-          oldAddedNode = newAddedNode.newNode;
-        }
-      }
-      setIsOldNodeLoading(false);
-      console.log("New Node: " + JSON.stringify(nodes));
-      return flowchartNode;
-    });
+        setIsOldNodeLoading(false);
+        console.log('New Node: ' + JSON.stringify(nodes));
+        return flowchartNode;
+      },
+    );
   };
 
   // const handleIsShowStats = async () => {
@@ -1226,43 +1334,45 @@ const Builder: React.FC<Props> = ({
     arrangeNodes();
     const missingNodes = missingFormNodes();
     if (missingNodes && missingNodes.length) {
-      const missing = missingNodes?.join(", ");
-      toast.warn(`${missing} ${missingNodes?.length === 1 ? "has" : "have"} missing value!`);
+      const missing = missingNodes?.join(', ');
+      toast.warn(
+        `${missing} ${missingNodes?.length === 1 ? 'has' : 'have'} missing value!`,
+      );
       // restoreOldNodes();
     } else {
       setIsNextPending(true);
       if (
         newWorkflowTemplate.id &&
         newWorkflowTemplate.status &&
-        newWorkflowTemplate.status !== "paused" &&
-        newWorkflowTemplate.status !== "created"
+        newWorkflowTemplate.status !== 'paused' &&
+        newWorkflowTemplate.status !== 'created'
       ) {
         try {
           prepareSendingNodes();
           // console.log("before sending server", JSON.stringify(newWorkflowTemplate));
           const response = await axios(true).post(
             `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${newWorkflowTemplate?.id}/pause`,
-            {}
+            {},
           );
           const receivedData = response.data.status.toString();
-          if (receivedData === "paused") {
-            newWorkflowTemplate.status = "paused";
-            toast.success("Workflow paused successfully!");
+          if (receivedData === 'paused') {
+            newWorkflowTemplate.status = 'paused';
+            toast.success('Workflow paused successfully!');
             restoreOldNodes();
           } else {
             // Handle errors
-            toast.error("Failed to pause workflow. Please try again.");
+            toast.error('Failed to pause workflow. Please try again.');
             restoreOldNodes();
           }
         } catch (error) {
           // Handle network errors
-          console.error("Error pause workflow:", error);
-          alert("Failed to pause workflow." + error);
+          console.error('Error pause workflow:', error);
+          alert('Failed to pause workflow.' + error);
           restoreOldNodes();
           return false;
         }
       } else {
-        newWorkflowTemplate.status = "created";
+        newWorkflowTemplate.status = 'created';
       }
 
       const savedSuccessfully = await onSaveWorkflowClick();
@@ -1307,9 +1417,16 @@ const Builder: React.FC<Props> = ({
     } else {
       // setIsOldNodeLoading(false);
     }
-    if (!(summerWorkflowId || workflowId || recommendedTemplate || rWorkflowTemplate)) {
+    if (
+      !(
+        summerWorkflowId ||
+        workflowId ||
+        recommendedTemplate ||
+        rWorkflowTemplate
+      )
+    ) {
       setIsOldNodeLoading(false);
-      console.log("non is true: ");
+      console.log('non is true: ');
       // setNodes(nodes);
       setNodes(copyOfInitNode);
       workflowId = undefined;
@@ -1317,12 +1434,12 @@ const Builder: React.FC<Props> = ({
       rWorkflowTemplateToLoad = undefined;
       newWorkflowTemplate = undefined;
       newWorkflowTemplate = { ...workflowTemplate };
-      newWorkflowTemplate.name = new Date().toLocaleString("en-US", {
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
+      newWorkflowTemplate.name = new Date().toLocaleString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
         hour12: true, // Include AM/PM format
       });
       // emailTemplates();
@@ -1336,12 +1453,19 @@ const Builder: React.FC<Props> = ({
       // emailTemplates();
     }
     // console.log("start method in abuiler sworkflowid1 " + JSON.stringify(newWorkflowTemplate));
-  }, [workflowId, summerWorkflowId, recommendedTemplate, rWorkflowTemplateToLoad]);
+  }, [
+    workflowId,
+    summerWorkflowId,
+    recommendedTemplate,
+    rWorkflowTemplateToLoad,
+  ]);
 
   //doing aisdr templ here
   useEffect(() => {
-    if (startMethod == "aisdr-setup") {
-      loadNodesFromTemplates(handleAisdrSetup(aisdrData, newWorkflowTemplate.name));
+    if (startMethod == 'aisdr-setup') {
+      loadNodesFromTemplates(
+        handleAisdrSetup(aisdrData, newWorkflowTemplate.name),
+      );
     }
   }, []);
 
@@ -1349,21 +1473,21 @@ const Builder: React.FC<Props> = ({
     <div
       className={
         isFullScreen
-          ? "fixed inset-0 h-screen pt-30 pb-60 pr-60 w-100vw dark:bg-bodyBgColor-dark bg-bodyBgColor left-120"
-          : ""
+          ? 'fixed inset-0 h-screen pt-30 pb-60 pr-60 w-100vw dark:bg-bodyBgColor-dark bg-bodyBgColor left-120'
+          : ''
       }
     >
       {isOldNodeLoading || isNextPending ? (
-        <div className='fixed inset-0 z-50'>
+        <div className="fixed inset-0 z-50">
           <SplashScreen />
         </div>
       ) : (
         <div
           className={`flex flex-col max-w-100vw ${
-            isFullScreen ? "h-[calc(100vh-68px)]" : "h-[calc(100vh-310px)]"
+            isFullScreen ? 'h-[calc(100vh-68px)]' : 'h-[calc(100vh-310px)]'
           }`}
         >
-          <div className='grid grid-cols-5 pt-10 pb-20'>
+          <div className="grid grid-cols-5 pt-10 pb-20">
             {/* <Button
               buttonClassName='flex items-center'
               onClick={onSaveWorkflowClick}
@@ -1373,21 +1497,27 @@ const Builder: React.FC<Props> = ({
               Save Workflow
             </Button> */}
             <div>
-              <p className='text-neutral-800 dark:text-neutral-400 text-16'>
+              <p className="text-neutral-800 dark:text-neutral-400 text-16">
                 {newWorkflowTemplate?.name}
               </p>
             </div>
-            <div className=' text-neutral-800 dark:text-neutral-400 text-16'>
-              {newWorkflowTemplate?.status ? "Status: " + newWorkflowTemplate?.status : ""}
+            <div className=" text-neutral-800 dark:text-neutral-400 text-16">
+              {newWorkflowTemplate?.status
+                ? 'Status: ' + newWorkflowTemplate?.status
+                : ''}
             </div>
-            <div className='flex items-center justify-center gap-25'>
-              {startMethod !== "aisdr-setup" && (
-                <Button className='w-125' buttonStyle='secondary' onClick={handleBack}>
+            <div className="flex items-center justify-center gap-25">
+              {startMethod !== 'aisdr-setup' && (
+                <Button
+                  className="w-125"
+                  buttonStyle="secondary"
+                  onClick={handleBack}
+                >
                   Back
                 </Button>
               )}
-              <Button className='w-145' onClick={handleNext}>
-                {newWorkflowTemplate?.id ? "Save" : "Save"}
+              <Button className="w-145" onClick={handleNext}>
+                {newWorkflowTemplate?.id ? 'Save' : 'Save'}
               </Button>
             </div>
             {/* <div className='flex items-center justify-center text-neutral-800 dark:text-neutral-400 text-16'>
@@ -1415,19 +1545,22 @@ const Builder: React.FC<Props> = ({
             </div> */}
             <div></div>
             <div
-              className='flex items-center justify-end pr-10 gap-10 hover:text-neutral-800 hover:dark:text-neutral-300 text-neutral-700 dark:text-neutral-400 duration-200 cursor-pointer transition-colors'
-              role='button'
+              className="flex items-center justify-end pr-10 gap-10 hover:text-neutral-800 hover:dark:text-neutral-300 text-neutral-700 dark:text-neutral-400 duration-200 cursor-pointer transition-colors"
+              role="button"
+              style={{ width: '100%', height: '100%' }}
               onClick={() =>
                 isFullScreen
                   ? dispatch(setBuilderScreenMode(false))
                   : dispatch(setBuilderScreenMode(true))
               }
             >
-              <p className=''>{isFullScreen ? "Small Screen" : "Full Screen"}</p>
+              <p className="">
+                {isFullScreen ? 'Small Screen' : 'Full Screen'}
+              </p>
               {isFullScreen ? (
-                <RiFullscreenExitLine className='w-24 h-24' />
+                <RiFullscreenExitLine className="w-24 h-24" />
               ) : (
-                <RiFullscreenFill className='w-24 h-24 ' />
+                <RiFullscreenFill className="w-24 h-24 " />
               )}
             </div>
           </div>

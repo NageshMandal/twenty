@@ -1,5 +1,10 @@
-import React, { FC } from "react";
-import { EdgeProps, getBezierPath, EdgeLabelRenderer, BaseEdge } from "reactflow";
+import React, { FC } from 'react';
+import {
+  EdgeProps,
+  getBezierPath,
+  EdgeLabelRenderer,
+  BaseEdge,
+} from 'reactflow';
 
 const AddAiActionEdge: FC<EdgeProps> = ({
   id,
@@ -26,17 +31,17 @@ const AddAiActionEdge: FC<EdgeProps> = ({
       <EdgeLabelRenderer>
         <div
           style={{
-            position: "absolute",
+            position: 'absolute',
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-            background: "",
+            background: '',
             padding: 8,
             borderRadius: 10,
             fontSize: 12,
             opacity: 0.9,
           }}
-          className='nodrag nopan bg-primary'
+          className="nodrag nopan bg-primary"
         >
-          <p className='text-white'>{data.label}</p>
+          <p className="text-white">{data.label}</p>
         </div>
       </EdgeLabelRenderer>
     </>

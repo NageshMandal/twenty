@@ -142,6 +142,7 @@ class LeadApi {
 
   async getLocation(query: any) {
     let response = null;
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (query) {
       response = await axios(true).get(
         `${process.env.REACT_APP_DEMAND_API_URL}/addresses/search?q=${query}`,

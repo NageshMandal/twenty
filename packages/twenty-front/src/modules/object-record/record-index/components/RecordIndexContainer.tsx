@@ -45,7 +45,7 @@ import { useIsFeatureEnabled } from '@/workspace/hooks/useIsFeatureEnabled';
 import { useCallback } from 'react';
 import { isDeeplyEqual } from '~/utils/isDeeplyEqual';
 import AiSdrSetupPage from '../../../../pages/Main/AiSdrSetup/Index/index.tsx'; // Adjust path as per actual file location
-import AutomationCreatePage from '../../../../pages/Main/Automation/Create/index.tsx';
+import AutomationCreatePage from '../../../../pages/Main/Automation/Create/index';
 
 const StyledContainer = styled.div`
   display: flex;

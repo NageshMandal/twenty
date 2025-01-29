@@ -59,7 +59,6 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
     // console.log("builderMessage use effect: ");
   }, [builderMessage]);
   useEffect(() => {
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (textAreaValue?.length) {
       setCharacterCount(textAreaValue.length);
       // let replacedValue = connectionRequestPrompts?.reduce(
@@ -108,7 +107,6 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
         },
       );
 
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (response) {
         console.log('connection request prompts Response: ', response);
         setConnectionRequestPrompts(response);
@@ -132,7 +130,6 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
         },
       );
 
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (response) {
         console.log('message request prompts Response: ', response);
         setConnectionRequestPrompts(response);
@@ -145,7 +142,6 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
   };
 
   const onConnectionRequestPromptSave = async () => {
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (selectedAiPrompt) {
       const aiPrompt = (selectedAiPrompt as unknown as { name?: string })?.name;
       textAreaValue = textAreaValue || '';
@@ -235,7 +231,6 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
                   handleChange={(option: ISelectOption) => {
                     const val = option.value;
                     let newVal = '';
-                    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
                     if (textAreaValue) {
                       newVal = textAreaValue.includes(val)
                         ? textAreaValue
@@ -323,7 +318,6 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
                 disabled={!textAreaValue?.length}
                 buttonClassName=" px-4"
                 onClick={() => {
-                  // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
                   if (builderMessage) {
                     dispatch(
                       setValueBuilderMessage({

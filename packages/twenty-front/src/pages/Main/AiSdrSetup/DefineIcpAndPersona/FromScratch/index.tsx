@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { FieldValues, useForm, useWatch } from 'react-hook-form';
 
 import Button from '../../../../../components/base/Button';
-import Icon from '../../../../../components/base/Icon/index';
 import { useLocation } from '../../../../../hooks/lead/useLocation';
 import { ISelectOption } from '../../../../../utils/types';
 import CompaniesToProspect from './CompaniesToProspect';
@@ -276,9 +275,6 @@ const FromScratch = ({
   return (
     <div className="w-full">
       <div className="flex items-center gap-12 py-30 w-full">
-        <div className="p-12 overflow-hidden bg-primary-2 rounded-xl">
-          <Icon name="Building" className="w-20 h-20 text-white" />
-        </div>
         <p className="text-neutral-800 dark:text-neutral-300 text-20">
           Setup Targeted Accounts + their Personas
         </p>

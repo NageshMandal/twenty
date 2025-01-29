@@ -3,7 +3,6 @@ import React from 'react';
 type Props = {
   label: string;
   count: number;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   onClick: Function;
   active: boolean;
 };

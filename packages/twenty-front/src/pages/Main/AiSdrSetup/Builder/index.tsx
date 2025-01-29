@@ -76,7 +76,7 @@ const AisdrBuilder: React.FC<Props> = ({ setCurrentTab }) => {
   });
   const initialNodes = [
     {
-      id: uuidv4(),
+      id: initialNodeUId,
       position: { x: centerX - 300, y: 30 },
       dragHandle: '.drag',
       data: {

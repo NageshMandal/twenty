@@ -15,13 +15,9 @@ type TBlock = {
 };
 
 type Props = {
-  // eslint-disable-next-line @typescript-eslint/ban-types
   onNextTab: Function;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   setTemplateName: Function;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   setCurrentTemplate: Function;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   setLinkedinWorkflowTemplate: Function;
 };
 
@@ -50,7 +46,6 @@ const LeadTab: React.FC<Props> = ({
       {currentScreen === 0 && (
         <div>
           <div className="flex items-center gap-12 py-30">
-            <div className="p-12 overflow-hidden bg-primary-2 rounded-xl"></div>
             <p className="font-normal text-neutral-800 dark:text-neutral-300 text-24">
               How do you want to add your prospects?
             </p>

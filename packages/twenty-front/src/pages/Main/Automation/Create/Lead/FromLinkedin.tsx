@@ -6,7 +6,7 @@ import Button from '../../../../../components/base/Button';
 import Icon from '../../../../../components/base/Icon';
 import Input from '../../../../../components/base/Input';
 import ReactSelect from '../../../../../components/base/ReactSelect';
-import { ISelectOption } from '../../../../utils/types';
+import { ISelectOption } from '../../../../../utils/types';
 import {
   autoStopOptions,
   scheduleRoot,
@@ -75,7 +75,6 @@ const FromLinkedin: React.FC<Props> = ({
     const searchURL = e.target.value;
     setLinkedinURL(searchURL);
     const updatedWorkflow = { ...linkedinWorkflow };
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (searchURL.startsWith('https://www.linkedin.com/sales/search/')) {
       updatedWorkflow.flowchart[0].content.value =
         'Linkedin Sales Navigator Search Extractor';
@@ -84,7 +83,6 @@ const FromLinkedin: React.FC<Props> = ({
       (updatedWorkflow.flowchart[0].content as any).profileNumber =
         profileNumber;
       setIsFormValid(true);
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     } else if (searchURL.startsWith('https://www.linkedin.com/sales/search/')) {
       updatedWorkflow.flowchart[0].content.value =
         'AISDR Linkedin Sales Navigator Search Extractor';
@@ -93,7 +91,6 @@ const FromLinkedin: React.FC<Props> = ({
       (updatedWorkflow.flowchart[0].content as any).profileNumber =
         profileNumber;
       setIsFormValid(true);
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     } else if (searchURL.startsWith('https://www.linkedin.com/sales/lists/')) {
       updatedWorkflow.flowchart[0].content.value =
         'Linkedin Sales Navigator List';

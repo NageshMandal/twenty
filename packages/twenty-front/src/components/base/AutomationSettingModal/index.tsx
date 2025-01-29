@@ -3,14 +3,12 @@ import classNames from 'classnames';
 import { Transition } from '@headlessui/react';
 
 import Icon from '../Icon';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import useOutsideClick from '../../../hooks/common/useOutsideClick.ts';
+import useOutsideClick from '../../../hooks/common/useOutsideClick';
 import ReactSelect from '../ReactSelect';
 import {
   autoStopOptions,
   scheduleRoot,
-} from '../../../pages/Main/Automation/Builder/TemplateFormOptions.tsx';
-// src/pages/Main/Automation/Builder/TemplateFormOptions
+} from '../../../pages/Main/Automation/Builder/TemplateFormOptions';
 import Switch from '../Switch';
 import { Controller } from 'react-hook-form';
 import Button from '../Button';

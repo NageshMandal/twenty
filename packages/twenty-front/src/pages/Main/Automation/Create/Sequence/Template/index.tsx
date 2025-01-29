@@ -55,7 +55,6 @@ const templateList = [
 ];
 
 type Props = {
-  // eslint-disable-next-line @typescript-eslint/ban-types
   onNextStep: Function;
 };
 
@@ -63,12 +62,10 @@ const Template: React.FC<Props> = ({ onNextStep }) => {
   const [currentTempId, setCurrentTempId] = useState(0);
 
   const currentTemplateLabel = useMemo(() => {
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (itemList1?.find((item) => item.id === currentTempId)) {
       const currentTem = itemList1?.find((item) => item.id === currentTempId);
       return currentTem?.label;
     }
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (itemList2?.find((item) => item.id === currentTempId)) {
       const currentTem = itemList2?.find((item) => item.id === currentTempId);
       return currentTem?.label;

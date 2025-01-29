@@ -6,6 +6,7 @@ import { RiDragMove2Fill } from 'react-icons/ri';
 import { Popover, Transition } from '@headlessui/react';
 import { FieldValues, useForm } from 'react-hook-form';
 
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import Icon, { IconType } from '../../../../components/base/Icon';
 import {
   commentsUsageArray,
@@ -74,6 +75,7 @@ interface FormData {
 
 const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @nx/workspace-no-state-useref
   const ref = useRef<HTMLInputElement | null>(null);
   // const applyButtonRef = useRef<HTMLButtonElement>(null);
   const { setNodes } = useReactFlow();
@@ -165,10 +167,12 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
   const handleApply = (formValues: FieldValues) => {
     // console.log("isrootbefore: " + isRootUrlCorrect);
     if (
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       selectedWorkflow &&
       selectedWorkflow.title == 'Linkedin Sales Navigator Search Extractor'
     ) {
       if (
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         formValues.searchURL &&
         !formValues.searchURL.startsWith(
           'https://www.linkedin.com/sales/search/',
@@ -180,10 +184,12 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
         setIsRootUrlCorrect(true);
       }
     } else if (
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       selectedWorkflow &&
       selectedWorkflow.title == 'Linkedin Sales Navigator List'
     ) {
       if (
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         formValues.searchURL &&
         !formValues.searchURL.startsWith(
           'https://www.linkedin.com/sales/lists/',
@@ -195,10 +201,12 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
         setIsRootUrlCorrect(true);
       }
     } else if (
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       selectedWorkflow &&
       selectedWorkflow.title == 'Linkedin Search Extractor'
     ) {
       if (
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         formValues.link &&
         !formValues.link.startsWith('https://www.linkedin.com/search/')
       ) {
@@ -208,10 +216,12 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
         setIsRootUrlCorrect(true);
       }
     } else if (
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       selectedWorkflow &&
       selectedWorkflow.title == 'Linkedin Group Extractor'
     ) {
       if (
+        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         formValues.groupUrl &&
         !formValues.groupUrl.startsWith('https://www.linkedin.com/groups/')
       ) {
@@ -223,6 +233,7 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
     } else {
       setIsRootUrlCorrect(true);
     }
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (selectedWorkflow && selectedWorkflow.title == 'Delay') {
       // data.delayUnit = formValues.delayUnit;
       data.delayUnit = {
@@ -244,6 +255,7 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
       data.typesAndSignals = formValues.typesAndSignals;
     }
 
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (data.isDelay) {
       data.formData = {
         delayUnit: {
@@ -536,6 +548,7 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
     // console.log("isnewnode " + isNewNode);
     // Check if this is a new node and it's a LinkedIn connection request
     if (
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       isNewNode &&
       selectedWorkflow &&
       (selectedWorkflow.title == 'Linkedin Connection Request' ||
@@ -553,6 +566,7 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
       setIsNewNode(false);
     }
     if (
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       isNewNode &&
       selectedWorkflow &&
       selectedWorkflow.title == 'Send Mail'
@@ -568,6 +582,7 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
       );
       setIsNewNode(false);
     }
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (isNewNode && selectedWorkflow && selectedWorkflow.title == 'AI SDR') {
       dispatch(setBuilderScreenMode(false));
       dispatch(
@@ -584,6 +599,7 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
       setIsNewNode(false);
     }
     if (
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       isNewNode &&
       selectedWorkflow &&
       selectedWorkflow.title == 'AISDR Linkedin'
@@ -599,6 +615,7 @@ const AddActionNode = ({ data, id }: { data: NodeData; id: string }) => {
       setIsNewNode(false);
     }
     if (
+      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       isNewNode &&
       selectedWorkflow &&
       selectedWorkflow.title == 'AISDR Mail'

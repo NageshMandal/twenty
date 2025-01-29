@@ -6,7 +6,7 @@ import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 
 import Button from '../../../../../../components/base/Button';
 import Icon from '../../../../../../components/base/Icon';
-import { IBuilderEmail } from '../../../../../../utils/types/automation.ts';
+import { IBuilderEmail } from '../../../../../../utils/types/automation';
 import { ISelectOption } from '../../../../../../utils/types';
 import { authSelector } from '../../../../../../store/Auth';
 import { emailTemplateVariables } from '../../../Builder/TemplateFormOptions';
@@ -21,7 +21,7 @@ import {
   useAppSelector,
 } from '../../../../../../hooks/redux/useStore';
 import Input from '../../../../../../components/base/Input';
-import axios from '../../../../../../utils/functions/axios.ts';
+import axios from '../../../../../../utils/functions/axios';
 import ReactSelectCard from '../../../../../../components/base/ReactSelectCard';
 import { RiFullscreenFill, RiFullscreenExitLine } from 'react-icons/ri';
 import ReactQuill from 'react-quill';

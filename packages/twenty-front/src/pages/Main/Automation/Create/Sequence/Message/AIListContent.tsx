@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../../../../components/base/Button';
+import Button from '../../../../../../components/base/Button';
 import ReactSelect from '../../../../../../components/base/ReactSelect';
 
 // Define a type for the template object

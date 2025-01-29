@@ -93,9 +93,7 @@ type Props = {
   templateName?: string;
   workflowId?: number;
   summerWorkflowId?: any;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   onBackTab: Function;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   onNextTab: Function;
   rWorkflowTemplate?: any;
   leadTemplateName?: any;
@@ -145,7 +143,6 @@ const Builder: React.FC<Props> = ({
         },
       );
       // toast.success("Email Template Loaded Successfully");
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (response) {
         // console.log("response : " + JSON.stringify(response));
       }
@@ -157,13 +154,11 @@ const Builder: React.FC<Props> = ({
   };
 
   let recommendedTemplate = useMemo(() => {
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (templateName) {
       const template = preBuiltTemplateList?.find(
         (item) => item.name === templateName,
       );
       return template;
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     } else if (leadTemplateName) {
       const template = preBuiltTemplateList?.find(
         (item) => item.name === leadTemplateName,
@@ -177,7 +172,6 @@ const Builder: React.FC<Props> = ({
   console.log('lead template name', leadTemplateName);
 
   let rWorkflowTemplateToLoad = useMemo(() => {
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (rWorkflowTemplate) {
       return rWorkflowTemplate;
     }
@@ -237,7 +231,6 @@ const Builder: React.FC<Props> = ({
         // const isFormData = !!Object.keys(item.data.formData).length;
         const isFormData =
           item.data.formData && Object.keys(item.data.formData).length > 0;
-        // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
         function hasMissingValues(obj: any) {
           // console.log("nodes missing c: " + (obj == undefined || obj == ""));
           if (typeof obj !== 'object') {
@@ -245,7 +238,7 @@ const Builder: React.FC<Props> = ({
           }
 
           for (const key in obj) {
-            if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            if (obj.hasOwnProperty(key)) {
               const value = obj[key];
               if (value === undefined) return true;
               if (hasMissingValues(value)) {
@@ -263,7 +256,6 @@ const Builder: React.FC<Props> = ({
               console.log('nodes missing -c: ' + JSON.stringify(val));
               //going to add optional form values here
               if (
-                // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
                 val === item.data.formData.imageUrl ||
                 item.data.formData.defineIcpAndPersona ||
                 item.data.formData.typesAndSignals
@@ -301,7 +293,6 @@ const Builder: React.FC<Props> = ({
         // console.log("formData value: ", item.data.formData);
         // console.log("formData type: ", typeof item.data.formData);
         // console.log("isRootUrlCorrect: " + JSON.stringify(isRootUrlCorrect));
-        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (isFormField && (isEmpty || !isFormData || !isRootUrlCorrect)) {
           return true;
         }
@@ -392,7 +383,6 @@ const Builder: React.FC<Props> = ({
             'aiSdrAutomated',
           ];
 
-          // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
           if (nodes[index].data) {
             // Create a dynamic type for nodes[index].data
             type DynamicData = {
@@ -404,7 +394,6 @@ const Builder: React.FC<Props> = ({
 
             // Iterate through the keys and assign them to flowchartNode.content if they exist
             for (const key of keysToInclude) {
-              // eslint-disable-next-line no-prototype-builtins
               if (dynamicData.hasOwnProperty(key)) {
                 // console.log("arraging adding keys: " + JSON.stringify(dynamicData));
                 // Use type assertion to suppress type error
@@ -520,10 +509,8 @@ const Builder: React.FC<Props> = ({
       const selectedNode = deleted[0];
 
       // Find all children nodes and collect their IDs
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       function deleteNodesRecursive(nodeId: any) {
         const currentNode = nodes.find((node) => node.id === nodeId);
-        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (currentNode) {
           const connectedEdges = getConnectedEdges([currentNode], edges);
 
@@ -538,7 +525,6 @@ const Builder: React.FC<Props> = ({
       }
 
       const parentEdge = edges.find((edge) => edge.target === selectedNode.id);
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (parentEdge) {
         const parentNodeId = parentEdge.source;
         nodesToDelete.add(parentNodeId);
@@ -547,13 +533,11 @@ const Builder: React.FC<Props> = ({
         const grandParentEdge = edges.find(
           (edge) => edge.target === parentNodeId,
         );
-        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (grandParentEdge) {
           const grandParentNodeId = grandParentEdge.source;
           const selectedNodeParent = nodes.find(
             (node) => node.id === grandParentNodeId,
           );
-          // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
           if (selectedNodeParent) {
             selectedNodeParent.data.isDropDownDisabled = false;
           }
@@ -585,7 +569,6 @@ const Builder: React.FC<Props> = ({
     node.data.isDropDownDisabled = true;
     // node.data.isOnStep = nodesLength;
 
-    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (delayAdded) {
       delayAdded.newDelayNode.data.isDropDownDisabled = true;
       const prebuiltData: FormData = {
@@ -619,7 +602,6 @@ const Builder: React.FC<Props> = ({
         'left',
       );
 
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (leftNode) {
         const { newAiNode, newAiEdge } = leftNode;
         setNodes((prevNodes) => [...prevNodes, newAiNode]);
@@ -632,7 +614,6 @@ const Builder: React.FC<Props> = ({
         'right',
       );
 
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (rightNode) {
         const { newAiNode, newAiEdge } = rightNode;
         setNodes((prevNodes) => [...prevNodes, newAiNode]);
@@ -641,7 +622,6 @@ const Builder: React.FC<Props> = ({
 
       const result = addNewNode(delayAdded?.newDelayNode, selectedOptionValue);
 
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (result) {
         const { newNode, newEdge } = result;
         result.newNode.data.isOnStep = delayAdded?.newDelayNode.data.isOnStep
@@ -670,7 +650,6 @@ const Builder: React.FC<Props> = ({
 
       const result = addNewNode(delayAdded?.newDelayNode, '1-1');
 
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (result) {
         const { newNode, newEdge } = result;
         result.newNode.data.isOnStep = delayAdded?.newDelayNode.data.isOnStep
@@ -682,7 +661,6 @@ const Builder: React.FC<Props> = ({
           ? delayAdded?.newDelayNode.data.isOnStep
           : 0;
       }
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (selectedOptionValue === '1-1 AutoPilot' && result) {
         result.newNode.data.label = 'Automated AI';
         result.newNode.data.isDropDownDisabled = true;
@@ -692,7 +670,6 @@ const Builder: React.FC<Props> = ({
         );
         const resultaai = addNewNode(delayAdded1?.newDelayNode, 'Automated AI');
 
-        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (resultaai) {
           const { newNode, newEdge } = resultaai;
           resultaai.newNode.data.isOnStep = delayAdded1?.newDelayNode.data
@@ -721,7 +698,6 @@ const Builder: React.FC<Props> = ({
         return updatedNodes;
       });
     } else if (selectedOptionValue === 'Visited Website') {
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (edges[3]) {
         edges[3].data.label = '';
         edges[3].type = '';
@@ -746,7 +722,6 @@ const Builder: React.FC<Props> = ({
       }
       // node.data.isOnStep = nodesLength;
 
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (delayAdded) {
         delayAdded.newDelayNode.data.isDropDownDisabled = true;
         const prebuiltData: FormData = {
@@ -765,7 +740,6 @@ const Builder: React.FC<Props> = ({
         delayAdded.newDelayNode.data.formData = updatedFormData;
         const result = addNewNode(delayAdded.newDelayNode, selectedOptionValue);
 
-        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (result) {
           const { newNode, newEdge } = result;
           result.newNode.data.isOnStep =
@@ -780,7 +754,6 @@ const Builder: React.FC<Props> = ({
         }
       }
     } else {
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (edges[3]) {
         edges[3].data.label = '';
         edges[3].type = '';
@@ -809,7 +782,6 @@ const Builder: React.FC<Props> = ({
       }
       // node.data.isOnStep = nodesLength;
 
-      // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
       if (delayAdded) {
         delayAdded.newDelayNode.data.isDropDownDisabled = true;
         const prebuiltData: FormData = {
@@ -829,7 +801,6 @@ const Builder: React.FC<Props> = ({
         // arrangeNodes();
         const result = addNewNode(delayAdded.newDelayNode, selectedOptionValue);
 
-        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (result) {
           const { newNode, newEdge } = result;
           // result.newNode.data.isOnStep = nodesLength + 2;
@@ -856,7 +827,6 @@ const Builder: React.FC<Props> = ({
         // console.log("nodeClicked ID:", event.target.id);
         if (
           // (event.target && event.target.tagName === "OPTION") ||
-          // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
           (event.target &&
             event.target.id === 'nodeSelectId' &&
             event.target.value !== 'Add Action') ||
@@ -877,7 +847,6 @@ const Builder: React.FC<Props> = ({
           // console.log("New Node Added: " + JSON.stringify(nodes));
         }
         // Check if the clicked element is the "Add" button
-        // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
         if (event.target && event.target.textContent === 'Add') {
           // Handle the "Add" button click
           // createNewNode(node);
@@ -1547,7 +1516,6 @@ const Builder: React.FC<Props> = ({
             <div
               className="flex items-center justify-end pr-10 gap-10 hover:text-neutral-800 hover:dark:text-neutral-300 text-neutral-700 dark:text-neutral-400 duration-200 cursor-pointer transition-colors"
               role="button"
-              style={{ width: '100%', height: '100%' }}
               onClick={() =>
                 isFullScreen
                   ? dispatch(setBuilderScreenMode(false))

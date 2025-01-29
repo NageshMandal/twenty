@@ -6,7 +6,7 @@ import SequenceTab from './Sequence';
 import SummarizeTab from './Summarize';
 import { IWorkflowTemplate } from '../../../../utils/types/social-selling';
 import { authSelector } from '../../../../store/Auth';
-import { useAppSelector } from '../../../../hooks/redux/useStore.ts';
+import { useAppSelector } from '../../../../hooks/redux/useStore';
 import { extensionUrl } from '../Builder/TemplateFormOptions';
 import { format } from 'date-fns';
 

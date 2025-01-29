@@ -126,14 +126,13 @@ const locationData = [
   },
 ];
 
-export const useLocation = (query: any) => {
+export const useLocation = (query = '') => {
   const [locationOption, setLocationOption] = useState<ISelectOption[]>([]);
 
-  const handleGetLocations = (q: any = null): void => {
-    // Filter locations based on query if provided
-    const filteredLocations = query
+  const handleGetLocations = (q: string | null): void => {
+    const filteredLocations = q
       ? locationData.filter((item) =>
-          item.display_name.toLowerCase().includes(query.toLowerCase()),
+          item.display_name.toLowerCase().includes(q.toLowerCase()),
         )
       : locationData;
 

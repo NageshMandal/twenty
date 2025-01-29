@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer } from "@reduxjs/toolkit";
 
 import {
   getCookie,
@@ -6,12 +6,8 @@ import {
   getUserInfo,
   logout,
   setDarkMode,
-} from './actions';
-import {
-  ICookieInfo,
-  ILinkedinConnectionStatus,
-  IUser,
-} from '../../utils/types';
+} from "./actions";
+import { ICookieInfo, ILinkedinConnectionStatus, IUser } from "../../utils/types";
 
 type AuthState = {
   isPending: boolean;
@@ -48,8 +44,7 @@ export const authReducer = createReducer(initialState, (builder) => {
       state.cookieInfo = payload as unknown as ICookieInfo;
     })
     .addCase(getLinkedinConnectionStatus.fulfilled, (state, { payload }) => {
-      state.linkedinConnectionStatus =
-        payload as unknown as ILinkedinConnectionStatus;
+      state.linkedinConnectionStatus = payload as unknown as ILinkedinConnectionStatus;
     })
     .addCase(setDarkMode, (state, { payload }) => {
       state.dark = payload;

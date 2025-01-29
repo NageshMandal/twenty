@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import Button from '../../../components/base/Button';
 import DeleteModal from '../../../components/modules/DeleteModal';
+import Icon from '../../../components/base/Icon';
 import TableEmpty from '../../../components/base/TableEmpty';
 import TableSkeleton from '../../../components/base/TableSkeleton';
 import { IWorkflow } from '../../../utils/types/social-selling';
@@ -32,6 +33,7 @@ const AutomationPage: React.FC = () => {
   };
 
   const handleDeleteAutomaton = async () => {
+    // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
     if (selectedAutomationId) {
       const res = await dispatch(deleteAutomation(selectedAutomationId));
       if (deleteAutomation.fulfilled.match(res)) {
@@ -87,6 +89,14 @@ const AutomationPage: React.FC = () => {
           >
             Open Automation
           </p>
+          <Icon
+            onClick={() => {
+              setShowModal(true);
+              setSelectedAutomationId(row.id);
+            }}
+            name="Cross"
+            className="w-20 h-20 text-neutral-800 dark:text-neutral-300 group-hover:text-white"
+          ></Icon>
         </div>
       ),
     },

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import Builder from '../../Builder';
-import Icon from '../../../../../components/base/Icon';
 import Message from './Message';
 import Template from './Template';
 import AiSdr from './AiSdr';
@@ -14,8 +13,7 @@ import {
 import {
   useAppDispatch,
   useAppSelector,
-} from '../../../../../hooks/redux/useStore.ts';
-// ../../../../../../hook/redux/useStore
+} from '../../../../../hooks/redux/useStore';
 import Email from './Email';
 
 type Props = {
@@ -107,9 +105,6 @@ const SequenceTab: React.FC<Props> = ({
       {currentStep === 1 ? (
         <div className="flex items-center justify-between max-w-1100">
           <div className="flex items-center gap-12 py-30">
-            <div className="p-12 overflow-hidden bg-primary-2 rounded-xl">
-              <Icon name="UserPlus" className="w-20 h-20 text-white" />
-            </div>
             <p className="font-normal text-neutral-800 dark:text-neutral-300 text-24">
               Choose a template for your automation or build from Scratch
             </p>

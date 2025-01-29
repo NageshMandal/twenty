@@ -4,7 +4,9 @@ import Button from '../../../../../components/base/Button';
 import { useForm } from 'react-hook-form';
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onNext: Function;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onBack: Function;
 };
 

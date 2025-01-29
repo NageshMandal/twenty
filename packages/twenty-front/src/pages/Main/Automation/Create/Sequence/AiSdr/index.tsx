@@ -3,7 +3,6 @@ import { AiFillExclamationCircle } from 'react-icons/ai';
 import { useForm, useWatch } from 'react-hook-form';
 
 import Button from '../../../../../../components/base/Button';
-import Icon from '../../../../../../components/base/Icon';
 import Textarea from '../../../../../../components/base/Textarea';
 import { IBuilderAiSdr } from '../../../../../../utils/types/automation';
 import { authSelector } from '../../../../../../store/Auth';
@@ -110,9 +109,6 @@ const AiSdr: React.FC<Props> = ({ builderAiSdr }) => {
     <div className="absolute w-1140, inset-0 bg-bodyBgColor dark:bg-bodyBgColor-dark">
       <div className="flex items-center justify-between max-w-1100">
         <div className="flex items-center gap-12 py-30">
-          <div className="p-12 overflow-hidden bg-primary-2 rounded-xl">
-            <Icon name="UserPlus" className="w-20 h-20 text-white" />
-          </div>
           <p className="font-normal text-neutral-800 dark:text-neutral-300 text-24">
             {labelOfMessage}
           </p>

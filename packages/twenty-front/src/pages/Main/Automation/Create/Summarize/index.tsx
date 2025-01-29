@@ -10,15 +10,14 @@ import axios from '../../../../../utils/functions/axios';
 import { IWorkflowTemplate } from '../../../../../utils/types/social-selling';
 import ReactLoading from 'react-loading';
 import AutomationSettingModal from '../../../../../components/base/AutomationSettingModal';
-import { ISelectOption } from '../utils/types';
+import { ISelectOption } from '../../../../../utils/types';
 import { FieldValues, useForm, useWatch } from 'react-hook-form';
 import {
   autoStopOptions,
   scheduleRoot,
 } from '../../Builder/TemplateFormOptions';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { useTags } from '../../../../../hooks/lead/useTags.ts';
-import { ILeadTag } from '../utils/types/leads';
+import { useTags } from '../../../../../hooks/lead/useTags';
+import { ILeadTag } from '../../../../../utils/types/leads';
 import Switch from '../../../../../components/base/Switch';
 
 type Props = {

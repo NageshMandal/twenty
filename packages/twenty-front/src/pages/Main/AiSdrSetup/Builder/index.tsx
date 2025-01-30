@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { RiFullscreenExitLine, RiFullscreenFill } from 'react-icons/ri';
 import ReactFlow, {
   Background,
   Controls,
@@ -11,19 +10,14 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import { v4 as uuidv4 } from 'uuid';
 
-import Button from '../../../../components/base/Button';
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../../../hooks/redux/useStore';
-import {
-  automationSelector,
-  setBuilderScreenMode,
-} from '../../../../store/Automation';
+import { automationSelector } from '../../../../store/Automation';
 import AisdrNode from './AisdrNode';
 // import Switch from "src/components/base/Switch";
 import { useForm, useWatch } from 'react-hook-form';
-import Switch from '../../../../components/base/Switch';
 import AisdrEdge from './AisdrEdge';
 
 type Props = {
@@ -262,76 +256,33 @@ const AisdrBuilder: React.FC<Props> = ({ setCurrentTab }) => {
           isFullScreen ? 'h-[calc(100vh-68px)]' : 'h-[calc(100vh-310px)]'
         }`}
       >
-        <div className="grid grid-cols-5 pt-10 pb-20">
-          <div className="flex flex-col items-center justify-center text-neutral-800 dark:text-neutral-400 text-16">
-            <div className="text-neutral-800 dark:text-neutral-400 whitespace-nowrap">
-              Workflow Name
-            </div>
-            <div>
-              <input
-                type="text"
-                className="bg-transparent border border-neutral-300 dark:border-neutral-800 rounded py-2 px-3 text-neutral-800 dark:text-neutral-300 text-16 focus:outline-none"
-                value={workflowTemplate.name}
-                onChange={(e) => setNewWorkflowTemplateName(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="flex items-center justify-center text-neutral-800 dark:text-neutral-400 text-16 px-12">
-            {workflowTemplate?.status
-              ? 'Status: ' + workflowTemplate?.status
-              : 'Status: Draft'}
-          </div>
-          <div className="flex items-center justify-center gap-25">
-            <Button
-              className="w-125"
-              buttonStyle="secondary"
-              onClick={() => setCurrentTab(1)}
-            >
-              Back
-            </Button>
-            <Button className="w-145">Start</Button>
-          </div>
-          <div className="flex items-center justify-center text-neutral-800 dark:text-neutral-400 text-16 px-12">
-            <Switch
-              control={control}
-              name="showAdvanceSwitch"
-              prefixLabel="Advance"
-            />
-          </div>
-          <div
-            className="flex text-center items-center justify-center pr-10 gap-10 hover:text-neutral-800 hover:dark:text-neutral-300 text-neutral-700 dark:text-neutral-400 duration-200 cursor-pointer transition-colors"
-            role="button"
-            onClick={() =>
-              isFullScreen
-                ? dispatch(setBuilderScreenMode(false))
-                : dispatch(setBuilderScreenMode(true))
-            }
-          >
-            <p className="">{isFullScreen ? 'Small Screen' : 'Full Screen'}</p>
-            {isFullScreen ? (
-              <RiFullscreenExitLine className="w-24 h-24" />
-            ) : (
-              <RiFullscreenFill className="w-24 h-24 " />
-            )}
-          </div>
-        </div>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onNodesDelete={onNodesDelete}
-          onConnect={onConnect}
-          onNodeClick={onNodeClick}
-          nodesConnectable={false}
-          nodeTypes={nodeTypes}
-          edgeTypes={edgeTypes}
-          proOptions={proOptions}
-          // zoomOnScroll={false}
+        {/* Other components and divs */}
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            overflow: 'hidden',
+            position: 'absolute',
+            zIndex: 0,
+          }}
         >
-          <Controls />
-          <Background />
-        </ReactFlow>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onNodesDelete={onNodesDelete}
+            onConnect={onConnect}
+            onNodeClick={onNodeClick}
+            nodesConnectable={false}
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
+            proOptions={proOptions}
+          >
+            <Controls />
+            <Background />
+          </ReactFlow>
+        </div>
       </div>
     </div>
   );

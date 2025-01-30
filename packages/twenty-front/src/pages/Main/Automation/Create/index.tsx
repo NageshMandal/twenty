@@ -61,6 +61,7 @@ const AutomationCreatePage: React.FC = () => {
       setOpenBuilderPage(false);
       setCurrentTab(1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     workflowId,
     startMethod,

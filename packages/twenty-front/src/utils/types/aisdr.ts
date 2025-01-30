@@ -1,4 +1,4 @@
-import { IMessage } from "./personalization";
+import { IMessage } from './personalization';
 
 export interface IWorkflow {
   connection_request_count?: string;

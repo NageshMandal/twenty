@@ -81,11 +81,9 @@ const AiSdrSetupPage: React.FC = () => {
       personalisationOptions: data,
     };
 
-    // Using the user ID set to 5
-    const userId = 5; // Set the user ID here directly
-
     const collectionRef = collection(firestore, 'aiSdrSetup');
-    const docRef = doc(collectionRef, userId.toString()); // Use the hardcoded user ID
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
+    const docRef = doc(collectionRef, userInfo.toString()); // Use the hardcoded user ID
 
     try {
       // await setDoc(docRef, dataToAdd);

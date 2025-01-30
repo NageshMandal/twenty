@@ -185,16 +185,16 @@ export interface IPeopleVisitor {
 }
 
 export interface IVisitorAccount {
-  token: "5a97071a-8c4a-4462-916f-fc8df1ae91e4";
-  updated_at: "2023-11-08 14:33:04";
+  token: '5a97071a-8c4a-4462-916f-fc8df1ae91e4';
+  updated_at: '2023-11-08 14:33:04';
   user_id: 5;
   is_active: 1;
   is_master_account: 1;
   id: 2;
   origins: string[];
   account_id: 1;
-  account_type: "voogy";
-  created_at: "2018-08-09 19:10:22";
+  account_type: 'voogy';
+  created_at: '2018-08-09 19:10:22';
   deleted_at: null;
   includes: any[];
   excludes: {
@@ -259,7 +259,12 @@ export interface IOverview {
 }
 export interface IProspect {
   activities?: string[];
-  company: { domain: string; name: string; position: string; company_logo?: string };
+  company: {
+    domain: string;
+    name: string;
+    position: string;
+    company_logo?: string;
+  };
   created_at: string;
   custom_field_1?: string;
   custom_field_2?: string;

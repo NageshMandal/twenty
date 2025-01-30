@@ -43,7 +43,12 @@ export interface IOverview {
 
 export interface IProspect {
   activities?: string[];
-  company: { domain: string; name: string; position: string; company_logo?: string };
+  company: {
+    domain: string;
+    name: string;
+    position: string;
+    company_logo?: string;
+  };
   created_at: string;
   custom_field_1?: string;
   custom_field_2?: string;

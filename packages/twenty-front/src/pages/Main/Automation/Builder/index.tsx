@@ -231,6 +231,7 @@ const Builder: React.FC<Props> = ({
         // const isFormData = !!Object.keys(item.data.formData).length;
         const isFormData =
           item.data.formData && Object.keys(item.data.formData).length > 0;
+        // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
         function hasMissingValues(obj: any) {
           // console.log("nodes missing c: " + (obj == undefined || obj == ""));
           if (typeof obj !== 'object') {
@@ -238,6 +239,7 @@ const Builder: React.FC<Props> = ({
           }
 
           for (const key in obj) {
+            // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
             if (obj.hasOwnProperty(key)) {
               const value = obj[key];
               if (value === undefined) return true;
@@ -256,6 +258,7 @@ const Builder: React.FC<Props> = ({
               console.log('nodes missing -c: ' + JSON.stringify(val));
               //going to add optional form values here
               if (
+                // eslint-disable-next-line @nx/workspace-explicit-boolean-predicates-in-if
                 val === item.data.formData.imageUrl ||
                 item.data.formData.defineIcpAndPersona ||
                 item.data.formData.typesAndSignals
@@ -1532,23 +1535,33 @@ const Builder: React.FC<Props> = ({
               )}
             </div>
           </div>
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onNodesDelete={onNodesDelete}
-            onConnect={onConnect}
-            onNodeClick={onNodeClick}
-            nodesConnectable={false}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            proOptions={proOptions}
-            // zoomOnScroll={false}
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              overflow: 'hidden',
+              position: 'absolute',
+              zIndex: 0,
+            }}
           >
-            <Controls />
-            <Background />
-          </ReactFlow>
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onNodesDelete={onNodesDelete}
+              onConnect={onConnect}
+              onNodeClick={onNodeClick}
+              nodesConnectable={false}
+              nodeTypes={nodeTypes}
+              edgeTypes={edgeTypes}
+              proOptions={proOptions}
+              // zoomOnScroll={false}
+            >
+              <Controls />
+              <Background />
+            </ReactFlow>
+          </div>
         </div>
       )}
     </div>

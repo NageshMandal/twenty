@@ -1,4 +1,4 @@
-import { IconType } from "../../components/base/Icon";
+import { IconType } from '../../components/base/Icon';
 
 export interface IMenuItem {
   icon: IconType;
@@ -36,7 +36,7 @@ export interface IPlanBkp {
   invoice_name: string;
   price: string;
   period: number;
-  period_unit: "daily" | "month" | "quarterly" | "semiannual" | "yearly";
+  period_unit: 'daily' | 'month' | 'quarterly' | 'semiannual' | 'yearly';
   trial_period: number;
   trial_period_unit: string;
   trial_end_action: string;
@@ -95,19 +95,24 @@ export interface ICurrencyAndCountry {
   currency: string;
 }
 
-export type TPlanCycle = "daily" | "month" | "quarterly" | "semiannual" | "yearly";
+export type TPlanCycle =
+  | 'daily'
+  | 'month'
+  | 'quarterly'
+  | 'semiannual'
+  | 'yearly';
 
 export interface ICycle {
-  value: "daily" | "month" | "quarterly" | "semiannual" | "yearly";
+  value: 'daily' | 'month' | 'quarterly' | 'semiannual' | 'yearly';
   title: string;
 }
 
 export interface ICycleTypeList {
-  DAILY: "daily";
-  MONTHLY: "month";
-  QUARTERLY: "quarterly";
-  SEMIANNUAL: "semiannual";
-  YEARLY: "yearly";
+  DAILY: 'daily';
+  MONTHLY: 'month';
+  QUARTERLY: 'quarterly';
+  SEMIANNUAL: 'semiannual';
+  YEARLY: 'yearly';
 }
 
 export interface ICard {

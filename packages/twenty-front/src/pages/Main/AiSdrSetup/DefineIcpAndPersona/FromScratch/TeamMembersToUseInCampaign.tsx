@@ -10,14 +10,18 @@ const TeamMembersToUseInCampaign = ({
   const { memberOptions, stageOptions } = useMember();
 
   useEffect(() => {
-    if (memberOptions && memberOptions.length > 0 && (!value || value.length === 0)) {
+    if (
+      memberOptions &&
+      memberOptions.length > 0 &&
+      (!value || value.length === 0)
+    ) {
       // Set the first option as the default if available
       handleInputChange({
         label: 'teamMembers',
         value: [memberOptions[0].label as unknown as string],
       });
     }
-  }, [memberOptions, value, handleInputChange]);  
+  }, [memberOptions, value, handleInputChange]);
 
   return (
     <div className="flex flex-col gap-12">

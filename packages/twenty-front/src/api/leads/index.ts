@@ -120,7 +120,7 @@ class LeadApi {
 
   async handleReply(data: any) {
     const response = await axios(true).post(
-      `${process.env.REACT_APP_WORKFLOW_API_URL}/prospect/workflow-response`,
+      `https://app.usedemand.com/api/prospect/workflow-response`,
       data,
     );
     return response;
@@ -128,14 +128,14 @@ class LeadApi {
 
   async getTechnology() {
     const response = await axios(true).get(
-      `${process.env.REACT_APP_DEMAND_API_URL}/technologies`,
+      `https://app.usedemand.com/api/technologies`,
     );
     return response;
   }
 
   async getTeam() {
     const response = await axios(true).get(
-      `${process.env.REACT_APP_DEMAND_API_URL}/account/team`,
+      `https://app.usedemand.com/api/account/team`,
     );
     return response;
   }
@@ -144,11 +144,11 @@ class LeadApi {
     let response = null;
     if (query) {
       response = await axios(true).get(
-        `${process.env.REACT_APP_DEMAND_API_URL}/addresses/search?q=${query}`,
+        `https://app.usedemand.com/api/addresses/search?q=${query}`,
       );
     } else {
       response = await axios(true).get(
-        `${process.env.REACT_APP_DEMAND_API_URL}/addresses/search`,
+        `https://app.usedemand.com/api/addresses/search`,
       );
     }
     return response;

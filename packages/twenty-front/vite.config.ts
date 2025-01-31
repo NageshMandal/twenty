@@ -23,6 +23,7 @@ export default defineConfig(({ command, mode }) => {
     SSL_CERT_PATH,
     SSL_KEY_PATH,
     REACT_APP_PORT,
+    REACT_APP_API_URL,
   } = env;
 
   const port = isNonEmptyString(REACT_APP_PORT)

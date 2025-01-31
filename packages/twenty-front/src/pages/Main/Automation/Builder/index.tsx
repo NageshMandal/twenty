@@ -919,7 +919,7 @@ const Builder: React.FC<Props> = ({
           await prepareSendingNodes();
           // arrangeNodes();
           const response = await axios(true).post(
-            `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/`,
+            `https://workflows.saleshub.ai/api/workflow/`,
             JSON.stringify(newWorkflowTemplate),
             {
               headers: {

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
+import { leadApi } from '../../api/leads';
+import { ISelectOption } from '../../utils/types';
 import {
   ICategory,
   ISubCategory,
   ITechAll,
   ITechnology,
 } from '../../utils/types/leads';
-import { ISelectOption } from '../../utils/types';
-import { leadApi } from '../../api/leads';
 
 export const useTechnology = () => {
   const [technologyList, setTechnologyList] = useState<ISelectOption[]>([]);

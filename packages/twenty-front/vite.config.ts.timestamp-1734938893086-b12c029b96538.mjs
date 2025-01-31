@@ -19,7 +19,7 @@ var vite_config_default = defineConfig(({ command, mode }) => {
     VITE_HOST,
     SSL_CERT_PATH,
     SSL_KEY_PATH,
-    REACT_APP_PORT
+    REACT_APP_PORT,
   } = env;
   const port = isNonEmptyString(REACT_APP_PORT) ? parseInt(REACT_APP_PORT) : 3001;
   const isBuildCommand = command === "build";

@@ -3,7 +3,7 @@ import axios from "../../utils/functions/axios";
 class AutomationApi {
   async getAutomationsList() {
     const response = await axios(true).get(
-      `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/`,
+      `https://workflows.saleshub.ai/api/workflow/`,
       {}
     );
     return response;
@@ -12,7 +12,7 @@ class AutomationApi {
   async deleteAutomationProcessFromList(id: number) {
     try {
       const response = await axios(true).post(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${id}/delete`,
+        `https://workflows.saleshub.ai/api/workflow/${id}/delete`,
         {}
       );
       if (response.status === 200) {

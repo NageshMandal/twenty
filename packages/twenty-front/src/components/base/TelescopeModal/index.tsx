@@ -48,7 +48,7 @@ const TelescopeModal: React.FC<ModalProps> = ({
     setIsDeleting(true);
     try {
       const response = await axios(true).post(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${workflowId}/prospect/${prospectId}/delete`
+        `https://workflows.saleshub.ai/api/workflow/${workflowId}/prospect/${prospectId}/delete`
       );
       if ((response as any).status == "success") {
         toast.success("Prospect deleted successfully");

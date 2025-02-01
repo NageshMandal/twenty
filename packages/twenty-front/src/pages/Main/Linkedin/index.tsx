@@ -58,7 +58,7 @@ const LinkedinPage: React.FC = () => {
     try {
       const data = formData.otp;
       await axios(true)
-        .post(`${process.env.REACT_APP_WORKFLOW_API_URL}/user/linkedin/authcode`, data)
+        .post(`https://workflows.saleshub.ai/api/user/linkedin/authcode`, data)
         .then((response) => {
           // toast.success("Linkedin Updated successfully");
           setOtp("");
@@ -93,7 +93,7 @@ const LinkedinPage: React.FC = () => {
       try {
         // Make a request to check for OTP
         const otpResponse = await axios(true)
-          .get(`${process.env.REACT_APP_WORKFLOW_API_URL}/linkedin/login/asking-login-otp`)
+          .get(`https://workflows.saleshub.ai/api/linkedin/login/asking-login-otp`)
           .then(async (response) => {
             console.log("askingotp listening: ", JSON.stringify(response.data));
             setIsAskingOtp(response.data);
@@ -127,7 +127,7 @@ const LinkedinPage: React.FC = () => {
       counter++;
       try {
         const logsResponse = await axios(true)
-          .get(`${process.env.REACT_APP_WORKFLOW_API_URL}/linkedin/service-logs`)
+          .get(`https://workflows.saleshub.ai/api/linkedin/service-logs`)
           .then(async (response) => {
             // console.log("servicelogs listening: ", JSON.stringify(response.data));
             setServiceLogs(response.data);
@@ -151,7 +151,7 @@ const LinkedinPage: React.FC = () => {
     try {
       const data = { username: formData.username, password: formData.passwordNew };
       await axios(true)
-        .post(`${process.env.REACT_APP_WORKFLOW_API_URL}/linkedin/login`, data)
+        .post(`https://workflows.saleshub.ai/api/linkedin/login`, data)
         .then((response) => {
           if (response.status == 200) {
             if (response.data == "success") {
@@ -199,7 +199,7 @@ const LinkedinPage: React.FC = () => {
     try {
       const data = { otp: formData.otp };
       await axios(true)
-        .post(`${process.env.REACT_APP_WORKFLOW_API_URL}/linkedin/login/update-otp`, data)
+        .post(`https://workflows.saleshub.ai/api/linkedin/login/update-otp`, data)
         .then((response) => {
           toast.success("Linkedin OTP submitted successfully");
           setOtp("");
@@ -266,7 +266,7 @@ const LinkedinPage: React.FC = () => {
       try {
         // Make a request to check for OTP
         const loginResponse = await axios(true)
-          .get(`${process.env.REACT_APP_WORKFLOW_API_URL}/linkedin/login/is-login`)
+          .get(`https://workflows.saleshub.ai/api/linkedin/login/is-login`)
           .then(async (response) => {
             console.log("askinglogin listening: ", JSON.stringify(response.data));
             setIsUserLoggedIn(response.data);
@@ -331,7 +331,7 @@ const LinkedinPage: React.FC = () => {
       setIsPending(true);
       try {
         const response = await axios(true).get(
-          `${process.env.REACT_APP_WORKFLOW_API_URL}/linkedin/login/is-login`
+          `https://workflows.saleshub.ai/api/linkedin/login/is-login`
         );
 
         if (response.data) {
@@ -354,7 +354,7 @@ const LinkedinPage: React.FC = () => {
     const listenForServiceLogsOnce = async () => {
       try {
         const logsResponse = await axios(true)
-          .get(`${process.env.REACT_APP_WORKFLOW_API_URL}/linkedin/service-logs`)
+          .get(`https://workflows.saleshub.ai/api/linkedin/service-logs`)
           .then(async (response) => {
             console.log("servicelogs listening: ", JSON.stringify(response.data));
             setServiceLogs(response.data);

@@ -211,7 +211,7 @@ const Email: React.FC<Props> = ({ builderEmail }) => {
     setIsButtonLoading(true);
     try {
       const response = await axios(true).get(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/0/mgptai-prompts`,
+        `https://workflows.saleshub.ai/api/workflow/0/mgptai-prompts`,
         {
           headers: {
             'Content-Type': 'application/json',

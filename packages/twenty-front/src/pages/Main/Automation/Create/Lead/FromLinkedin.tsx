@@ -175,9 +175,7 @@ const FromLinkedin: React.FC<Props> = ({
   return (
     <div className="w-full">
       <div className="flex items-center gap-12 py-30 w-full">
-        <div className="p-12 overflow-hidden bg-primary-2 rounded-xl">
-          <Icon name="UserPlus" className="w-20 h-20 text-white" />
-        </div>
+        
         <p className="text-neutral-800 dark:text-neutral-300 text-20">
           LinkedIn select Url type
         </p>

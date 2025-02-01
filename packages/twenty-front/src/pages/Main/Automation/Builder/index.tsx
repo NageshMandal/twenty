@@ -892,7 +892,7 @@ const Builder: React.FC<Props> = ({
           await prepareSendingNodes();
           // arrangeNodes();
           await axios(true).post(
-            `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${newWorkflowTemplate.id}/update`,
+            `https://workflows.saleshub.ai/api/workflow/${newWorkflowTemplate.id}/update`,
             JSON.stringify(newWorkflowTemplate),
             {
               headers: {
@@ -935,7 +935,7 @@ const Builder: React.FC<Props> = ({
           if (newWorkflowTemplate.status === 'created') {
             const toSend = `remove_prospect_on_li_reply=${1}&remove_prospect_on_email_reply=${1}`;
             const response1 = await axios(true).put(
-              `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${newWorkflowTemplate?.id}/settings?${toSend}`,
+              `https://workflows.saleshub.ai/api/workflow/${newWorkflowTemplate?.id}/settings?${toSend}`,
               {},
             );
             const receiveData = response1.status.toString();
@@ -969,7 +969,7 @@ const Builder: React.FC<Props> = ({
       setIsOldNodeLoading(true);
       // arrangeNodes();
       const response = await axios(true).get(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${haveWorkflowId}`,
+        `https://workflows.saleshub.ai/api/workflow/${haveWorkflowId}`,
         {},
       );
 
@@ -1323,7 +1323,7 @@ const Builder: React.FC<Props> = ({
           prepareSendingNodes();
           // console.log("before sending server", JSON.stringify(newWorkflowTemplate));
           const response = await axios(true).post(
-            `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${newWorkflowTemplate?.id}/pause`,
+            `https://workflows.saleshub.ai/api/workflow/${newWorkflowTemplate?.id}/pause`,
             {},
           );
           const receivedData = response.data.status.toString();

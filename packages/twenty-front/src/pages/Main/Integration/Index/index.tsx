@@ -84,7 +84,7 @@ const Integration: React.FC = () => {
     const fetchCalendlyConnectionStatus = async () => {
       try {
         const response = await axios(true).get(
-          `${process.env.REACT_APP_WORKFLOW_API_URL}/integration/calendly/connection-status`,
+          `https://workflows.saleshub.ai/api/integration/calendly/connection-status`,
           {}
         );
         if ((response as any).status === "connected") {
@@ -106,7 +106,7 @@ const Integration: React.FC = () => {
         // console.log("--------------code is : " + code);
         try {
           const response = await axios(true).post(
-            `${process.env.REACT_APP_WORKFLOW_API_URL}/integration/calendly/callback`,
+            `https://workflows.saleshub.ai/api/integration/calendly/callback`,
             {
               code,
             }

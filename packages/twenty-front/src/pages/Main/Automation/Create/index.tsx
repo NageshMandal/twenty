@@ -113,21 +113,6 @@ const AutomationCreatePage: React.FC = () => {
   return (
     <>
       <div>
-        {/* <Link
-          onClick={() => {
-            setWorkflowId(undefined);
-            setCurrentTemplate(undefined);
-            setLeadTemplateName(undefined);
-            setLinkedinWorkflowTemplate(undefined);
-            setSummerWorkflowIdWorkflowId(undefined);
-            setWorkflowTemplate(undefined);
-          }}
-          to={paths.main.automation.index}
-          className='flex items-center gap-4 pb-4 text-neutral-800 dark:text-neutral-300'
-        >
-          <Icon name='ArrowLeft' className='w-20 h-20' />
-          <p>Automations</p>
-        </Link> */}
         <div
           className={`flex items-center justify-between gap-16 ${
             currentTab === 1 ? 'max-w-1140' : 'max-w-1140'

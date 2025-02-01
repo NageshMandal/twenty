@@ -3,7 +3,7 @@ import axios from "../../utils/functions/axios";
 class AuthApi {
   async login(data = {}) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/account/login`,
+      `https://app.usedemand.com/api/account/login`,
       data
     );
     return response;
@@ -11,7 +11,7 @@ class AuthApi {
 
   async forgotPass(data: any) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/account/password/email`,
+      `https://app.usedemand.com/api/account/password/email`,
       data
     );
     return response;
@@ -19,26 +19,26 @@ class AuthApi {
 
   async restorePass(data: any) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/account/password/reset`,
+      `https://app.usedemand.com/api/account/password/reset`,
       data
     );
     return response;
   }
 
   async getUserInfoByIp() {
-    const response = await axios().get(`${process.env.REACT_APP_DEMAND_API_URL}/account/ip`);
+    const response = await axios().get(`https://app.usedemand.com/api/account/ip`);
     return response;
   }
 
   async getPlan(params = {}) {
-    const response = await axios().get(`${process.env.REACT_APP_DEMAND_API_URL}/chargebee/plans`, {
+    const response = await axios().get(`https://app.usedemand.com/api/chargebee/plans`, {
       params,
     });
     return response;
   }
 
   async getOpenpayPlans(params = {}) {
-    const response = await axios().get(`${process.env.REACT_APP_DEMAND_API_URL}/openpay/plans`, {
+    const response = await axios().get(`https://app.usedemand.com/api/openpay/plans`, {
       params,
     });
     return response;
@@ -46,7 +46,7 @@ class AuthApi {
 
   async getOpenpayCheckout(data = {}) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/openpay/checkout-plan`,
+      `https://app.usedemand.com/api/openpay/checkout-plan`,
       data
     );
     return response;
@@ -54,7 +54,7 @@ class AuthApi {
 
   async subscriptionEstimate(data = {}) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/chargebee/subscription-estimate`,
+      `https://app.usedemand.com/api/chargebee/subscription-estimate`,
       data
     );
     return response;
@@ -62,7 +62,7 @@ class AuthApi {
 
   async subscriptionOpenpayEstimate(data = {}) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/openpay/subscription-estimate`,
+      `https://app.usedemand.com/api/openpay/subscription-estimate`,
       data
     );
     return response;
@@ -70,7 +70,7 @@ class AuthApi {
 
   async createPaymentIntent(data = {}) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/chargebee/payment-intent`,
+      `https://app.usedemand.com/api/chargebee/payment-intent`,
       data
     );
     return response;
@@ -78,7 +78,7 @@ class AuthApi {
 
   async createOpenpayPaymentIntent(data = {}) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/openpay/payment-intent`,
+      `https://app.usedemand.com/api/openpay/payment-intent`,
       data
     );
     return response;
@@ -86,7 +86,7 @@ class AuthApi {
 
   async registerUser(data = {}) {
     const response = await axios().post(
-      `${process.env.REACT_APP_DEMAND_API_URL}/account/registerUser`,
+      `https://app.usedemand.com/api/account/registerUser`,
       data
     );
     return response;
@@ -98,13 +98,13 @@ class AuthApi {
   }
 
   async getUserInfo() {
-    const response = await axios(true).get(`${process.env.REACT_APP_DEMAND_API_URL}/account/user`);
+    const response = await axios(true).get(`https://app.usedemand.com/api/account/user`);
     return response;
   }
 
   async logout() {
     const response = await axios(true).get(
-      `${process.env.REACT_APP_DEMAND_API_URL}/account/logout`
+      `https://app.usedemand.com/api/account/logout`
     );
     return response;
   }

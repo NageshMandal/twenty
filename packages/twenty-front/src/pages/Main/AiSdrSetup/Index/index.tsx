@@ -81,9 +81,9 @@ const AiSdrSetupPage: React.FC = () => {
       personalisationOptions: data,
     };
 
-    const collectionRef = collection(firestore, 'aiSdrSetup');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
-    const docRef = doc(collectionRef, userInfo.toString()); // Use the hardcoded user ID
+    // const collectionRef = collection(firestore, 'aiSdrSetup');
+    // // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
+    // const docRef = doc(collectionRef, userInfo.toString()); // Use the hardcoded user ID
 
     try {
       // await setDoc(docRef, dataToAdd);
@@ -92,12 +92,12 @@ const AiSdrSetupPage: React.FC = () => {
       setCurrentMethod(0);
       setCurrentTab(0);
 
-      navigate(paths.main.automation.create, {
+      navigate('/objects/Automations', {
         state: { isAisdrSetupLanding: true, aisdrData: dataToAdd },
       });
     } catch (error) {
-      toast.error(error?.message ?? 'Document write failed');
-    }
+      toast.error(error?.message ?? 'Document write failed');
+    }
   };
 
   // Handle which method is chosen in step 0

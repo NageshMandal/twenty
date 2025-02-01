@@ -261,7 +261,7 @@ const SocialSellingPage: React.FC = () => {
     try {
       // Assuming 'id' is the ID of the workflow
       const response = await axios(true).get(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${wId}/process`
+        `https://workflows.saleshub.ai/api/workflow/${wId}/process`
       );
       if ((response as any).message === "Workflow resumed") {
         toast.success(
@@ -283,7 +283,7 @@ const SocialSellingPage: React.FC = () => {
     try {
       // Assuming 'id' is the ID of the workflow
       const response = await axios(true).post(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${wId}/pause`
+        `https://workflows.saleshub.ai/api/workflow/${wId}/pause`
       );
       if ((response as any).message === "success") {
         toast.success("Workflow paused successfully, changes will reflect in the next few minutes");
@@ -303,7 +303,7 @@ const SocialSellingPage: React.FC = () => {
     try {
       // Assuming 'id' is the ID of the workflow
       const response = await axios(true).post(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${wId}/restart`
+        `https://workflows.saleshub.ai/api/workflow/${wId}/restart`
       );
       if ((response as any).message === "success") {
         toast.success(
@@ -325,7 +325,7 @@ const SocialSellingPage: React.FC = () => {
       // setIsTelescopeModalOpen(true);
       // Assuming 'id' is the ID of the workflow
       const response = await axios(true).post(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${wId}/telescope`
+        `https://workflows.saleshub.ai/api/workflow/${wId}/telescope`
       );
       if ((response as any).status === 200) {
         setTelescopeData((response as any).data);

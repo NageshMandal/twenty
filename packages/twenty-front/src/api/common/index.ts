@@ -2,7 +2,7 @@ import axios from "../../utils/functions/axios";
 
 class CommonApi {
   async getWorkflow(params = {}) {
-    const response = await axios(true).get(`${process.env.REACT_APP_WORKFLOW_API_URL}/workflow`, {
+    const response = await axios(true).get(`https://workflows.saleshub.ai/api/workflow`, {
       params,
     });
     return response;

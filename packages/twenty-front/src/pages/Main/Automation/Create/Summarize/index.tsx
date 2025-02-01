@@ -73,7 +73,7 @@ const SummarizeTab: React.FC<Props> = ({ workflowTemplate, onBackTab }) => {
       workflowTemplate.flowchart[0].content.should_find_emails =
         shouldFindEmails ?? true;
       await axios(true).post(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${workflowTemplate.id}/update`,
+        `https://workflows.saleshub.ai/api/workflow/${workflowTemplate.id}/update`,
         JSON.stringify(workflowTemplate),
         {
           headers: {
@@ -129,7 +129,7 @@ const SummarizeTab: React.FC<Props> = ({ workflowTemplate, onBackTab }) => {
             shouldFindEmails ?? true;
           console.log('workflowTemplate: ' + JSON.stringify(workflowTemplate));
           const response = await axios(true).get(
-            `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${workflowTemplate?.id}/process`,
+            `https://workflows.saleshub.ai/api/workflow/${workflowTemplate?.id}/process`,
             {},
           );
           const receiveData = response.status.toString();
@@ -164,7 +164,7 @@ const SummarizeTab: React.FC<Props> = ({ workflowTemplate, onBackTab }) => {
       } else if (workflowStatus == 'processing') {
         try {
           const response = await axios(true).post(
-            `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${workflowTemplate?.id}/pause`,
+            `https://workflows.saleshub.ai/api/workflow/${workflowTemplate?.id}/pause`,
             {},
           );
           const receiveData = response.data.status.toString();
@@ -218,11 +218,11 @@ const SummarizeTab: React.FC<Props> = ({ workflowTemplate, onBackTab }) => {
       }
 
       const response = await axios(true).put(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${workflowTemplate?.id}/settings?${toSend}`,
+        `https://workflows.saleshub.ai/api/workflow/${workflowTemplate?.id}/settings?${toSend}`,
         {},
       );
       const response2 = await axios(true).put(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${workflowTemplate?.id}/settings`,
+        `https://workflows.saleshub.ai/api/workflow/${workflowTemplate?.id}/settings`,
         {
           schedule_id: selectedTime.value ?? null,
           sync_to_hubspot_on_reply: syncToH,
@@ -260,7 +260,7 @@ const SummarizeTab: React.FC<Props> = ({ workflowTemplate, onBackTab }) => {
     setIsSettingModalLoading(true);
     try {
       const response = await axios(true).get(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/${workflowTemplate?.id}/settings`,
+        `https://workflows.saleshub.ai/api/workflow/${workflowTemplate?.id}/settings`,
         {},
       );
       const recivedData = response as any;
@@ -330,9 +330,7 @@ const SummarizeTab: React.FC<Props> = ({ workflowTemplate, onBackTab }) => {
             isSavingBothSettings={isSavingBothSettings}
           ></AutomationSettingModal>
           <div className="flex items-center gap-12 py-30">
-            <div className="p-12 overflow-hidden bg-primary-2 rounded-xl">
-              <Icon name="UserPlus" className="w-20 h-20 text-white" />
-            </div>
+            
             <p className="font-normal text-neutral-800 dark:text-neutral-300 text-24">
               Automation: {workflowTemplate.name} is ready
             </p>

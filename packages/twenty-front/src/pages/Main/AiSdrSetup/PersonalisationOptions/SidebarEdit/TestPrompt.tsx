@@ -68,7 +68,7 @@ const TestPrompt: React.FC<TestPromptProps> = ({
       console.log("userPrompt: ", userPrompt);
       console.log("systemPrompt: ", systemPrompt);
       const response = await axios(true).post(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/aisdrchatgpt/testprompt`,
+        `https://workflows.saleshub.ai/api/workflow/aisdrchatgpt/testprompt`,
         {
           data: {
             systemPrompt,

@@ -166,8 +166,8 @@ const PersonalisationOptions: React.FC<Props> = ({ setCurrentTab, onSave }) => {
     };
     onSave(data);
 
-    // Navigate to the '/automation/create' route after saving
-    navigate('/automation/create');
+    // // Navigate to the '/automation/create' route after saving
+    // navigate('/automation/create');
   };
 
   const handleRemoveTypeAndSignal = (typeAndSignal: string) => {
@@ -185,9 +185,7 @@ const PersonalisationOptions: React.FC<Props> = ({ setCurrentTab, onSave }) => {
   return (
     <div className="w-full">
       <div className="flex items-center gap-12 py-30 w-full">
-        <div className="p-12 overflow-hidden bg-primary-2 rounded-xl">
-          <Icon name="UserPlus" className="w-20 h-20 text-white" />
-        </div>
+        
         <p className="font-normal text-neutral-800 dark:text-neutral-300 text-24">
           Personalisation Setup
         </p>

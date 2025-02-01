@@ -99,7 +99,7 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
     setIsButtonLoading(true);
     try {
       const response = await axios(true).get(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/0/mpgpt-connection-prompts`,
+        `https://workflows.saleshub.ai/api/workflow/0/mpgpt-connection-prompts`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
     setIsButtonLoading(true);
     try {
       const response = await axios(true).get(
-        `${process.env.REACT_APP_WORKFLOW_API_URL}/workflow/0/mpgpt-message-prompts`,
+        `https://workflows.saleshub.ai/api/workflow/0/mpgpt-message-prompts`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -194,9 +194,7 @@ const Message: React.FC<Props> = ({ builderMessage }) => {
       ></ConnectionRequestModal>
       <div className="flex items-center justify-between max-w-1100">
         <div className="flex items-center gap-12 py-30">
-          <div className="p-12 overflow-hidden bg-primary-2 rounded-xl">
-            <Icon name="UserPlus" className="w-20 h-20 text-white" />
-          </div>
+          
           <p className="font-normal text-neutral-800 dark:text-neutral-300 text-24">
             {labelOfMessage}
           </p>
